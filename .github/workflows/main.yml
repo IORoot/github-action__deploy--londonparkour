@@ -57,11 +57,28 @@ jobs:
             --exclude /.git/ \
             --exclude /.github/ \
             ./ ${{env.dest}}
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo {} \;
-          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo {} \;
-
-
-
+            
+      # Install NPM Packages
+      - name: NPM Install
+        env:
+          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
+        run: |
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "npm install in " {} > git_install.log \;
+    
+                
+      # Install Composer Packages
+      - name: Composer Install
+        env:
+          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
+        run: |
+          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} >> git_install.log \;
+          
+      # Change Ownerships
+      - name: CHOWN www-data:www-data
+        env:
+          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
+        run: |
+          chown -Rf www-data:www-data
 
 
 
