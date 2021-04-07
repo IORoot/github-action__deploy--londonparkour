@@ -57,6 +57,8 @@ jobs:
             --exclude /.git/ \
             --exclude /.github/ \
             ./ ${{env.dest}}
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo {} \;
+          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo {} \;
 
 
 
