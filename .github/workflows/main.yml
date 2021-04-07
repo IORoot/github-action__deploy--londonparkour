@@ -54,11 +54,7 @@ jobs:
       - name: Composer Install
         run: |
           find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} \;
-          
-      # Change Ownerships
-      - name: chown www-data:www-data
-        run: |
-          chown -Rf www-data:www-data .
+        
 
 
       # Deploy to staging server
@@ -75,4 +71,7 @@ jobs:
             --exclude /.github/ \
             ./ ${{env.dest}}
 
-
+      # Change Ownerships
+      - name: chown
+        run: |
+          ssh -i ./deploy_key -o StrictHostKeyChecking=no ${{env.dest}} chown -Rf www-data:www-data .
