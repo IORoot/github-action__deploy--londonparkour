@@ -24,7 +24,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-  
+          
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
@@ -43,6 +43,23 @@ jobs:
           cd ./wp-content/themes/wp-theme__londonparkour--v4
           ls
           npm install
+            
+      # Install NPM Packages
+      - name: NPM Install
+        run: |
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "npm install in " {} \;
+    
+                
+      # Install Composer Packages
+      - name: Composer Install
+        run: |
+          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} \;
+          
+      # Change Ownerships
+      - name: chown www-data:www-data
+        run: |
+          chown -Rf www-data:www-data .
+
 
       # Deploy to staging server
       - name: Sync
@@ -57,30 +74,5 @@ jobs:
             --exclude /.git/ \
             --exclude /.github/ \
             ./ ${{env.dest}}
-            
-      # Install NPM Packages
-      - name: NPM Install
-        env:
-          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
-        run: |
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "npm install in " {} > /tmp/git_install.log \;
-    
-                
-      # Install Composer Packages
-      - name: Composer Install
-        env:
-          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
-        run: |
-          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} >> /tmp/git_install.log \;
-          
-      # Change Ownerships
-      - name: chown www-data:www-data
-        env:
-          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
-        run: |
-          whoami
-          sudo chown -Rf www-data:www-data .
-
-
 
 
