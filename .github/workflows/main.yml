@@ -31,7 +31,6 @@ jobs:
           node-version: 14.x  
 
       - name: Install dependencies
-        working-directory: ./wp-content/themes/
         run: |
-          cd ./wp-content/themes/wp-theme__londonparkour--v4/
+          cd ./wp-content/themes/
           npm install
