@@ -71,7 +71,15 @@ jobs:
             --exclude /.github/ \
             ./ ${{env.dest}}
 
-
-
+      - name: Chown
+        uses: JimCronqvist/action-ssh@master
+        env:
+          dest: '/var/www/vhosts/test/'
+        with:
+          hosts: 'root@londonparkour.com'
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd /var/www/vhosts/test/
+            chown www-data:www-data wp-config.php
 
 
