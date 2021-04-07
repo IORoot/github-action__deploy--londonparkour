@@ -63,7 +63,7 @@ jobs:
         env:
           dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "npm install in " {} > git_install.log \;
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "npm install in " {} > /tmp/git_install.log \;
     
                 
       # Install Composer Packages
@@ -71,14 +71,14 @@ jobs:
         env:
           dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
-          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} >> git_install.log \;
+          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} >> /tmp/git_install.log \;
           
       # Change Ownerships
-      - name: CHOWN www-data:www-data
+      - name: chown www-data:www-data
         env:
           dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
-          chown -Rf www-data:www-data
+          chown -Rf www-data:www-data .
 
 
 
