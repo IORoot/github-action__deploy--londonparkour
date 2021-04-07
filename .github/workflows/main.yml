@@ -78,7 +78,8 @@ jobs:
         env:
           dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
-          chown -Rf www-data:www-data .
+          whoami
+          sudo chown -Rf www-data:www-data .
 
 
 
