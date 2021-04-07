@@ -70,7 +70,7 @@ jobs:
             --exclude /.git/ \
             --exclude /.github/ \
             ./ ${{env.dest}}
-          ssh -i ./deploy_key -o StrictHostKeyChecking=no ${{env.dest}} chown -Rf www-data:www-data .
+
 
 
 
