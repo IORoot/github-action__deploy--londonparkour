@@ -50,10 +50,10 @@ jobs:
           find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "--- npm install in " {} \;
     
                 
-      # Install Composer Packages
+      # Install Composer Packages in wp-plugin__ folders
       - name: Composer Install
         run: |
-          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer update \; -exec echo "--- composer install in " {} \;
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -exec echo "--- composer install in " {} \; 
         
 
 
