@@ -32,5 +32,5 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd ./wp-content/themes/
+          cd ./wp-content/themes/wp-theme__londonparkour--v4
           npm install
