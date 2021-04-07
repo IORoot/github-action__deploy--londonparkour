@@ -53,7 +53,7 @@ jobs:
       # Install Composer Packages in wp-plugin__ folders
       - name: Composer Install
         run: |
-          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -exec echo "--- composer install in " {} \; 
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
         
 
 
