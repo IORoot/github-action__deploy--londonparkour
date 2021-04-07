@@ -47,13 +47,13 @@ jobs:
       # Install NPM Packages
       - name: NPM Install
         run: |
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "npm install in " {} \;
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "--- npm install in " {} \;
     
                 
       # Install Composer Packages
       - name: Composer Install
         run: |
-          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer install \; -exec echo "composer install in " {} \;
+          find . ! -path "*/vendor/*" ! -path "*/node_modules/*" -name "composer.json"  -execdir composer update \; -exec echo "--- composer install in " {} \;
         
 
 
@@ -71,6 +71,9 @@ jobs:
             --exclude /.github/ \
             ./ ${{env.dest}}
 
+
+
+      # Chown to www-data
       - name: Chown
         uses: JimCronqvist/action-ssh@master
         env:
@@ -79,7 +82,6 @@ jobs:
           hosts: 'root@londonparkour.com'
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
-            cd /var/www/vhosts/test/
-            chown www-data:www-data wp-config.php
+            chown -Rf www-data:www-data ${{env.dest}}
 
 
