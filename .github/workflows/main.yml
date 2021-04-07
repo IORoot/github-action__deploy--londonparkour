@@ -47,7 +47,7 @@ jobs:
       # Deploy to staging server
       - name: Sync
         env:
-          dest: 'root@londonparkour.com:/var/www/vhost/test/'
+          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
           echo "${{secrets.DEPLOY_KEY}}" > deploy_key
           chmod 600 ./deploy_key
