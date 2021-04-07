@@ -23,8 +23,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
   
+      # Checkout repo with submodules
+      # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
-      
+        with:
+          submodules: recursive
+          
+      # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -33,4 +38,5 @@ jobs:
       - name: Install dependencies
         run: |
           cd ./wp-content/themes/wp-theme__londonparkour--v4
+          ls
           npm install
