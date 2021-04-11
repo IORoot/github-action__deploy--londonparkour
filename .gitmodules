@@ -67,3 +67,6 @@
 [submodule "wp-content/plugins/wp-plugin__footer"]
 	path = wp-content/plugins/wp-plugin__footer
 	url = https://github.com/IORoot/wp-plugin__footer.git
+[submodule "wp-content/plugins/wp-plugin__picture-images"]
+	path = wp-content/plugins/wp-plugin__picture-images
+	url = https://github.com/IORoot/wp-plugin__picture-images.git
