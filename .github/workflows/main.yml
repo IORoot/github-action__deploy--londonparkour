@@ -15,6 +15,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -22,15 +24,64 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+          
+      # Checkout repo with submodules
+      # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          
+      # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x  
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Install Theme Node Dependencies
+      - name: Install dependencies
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          cd ./wp-content/themes/wp-theme__londonparkour--v4
+          ls
+          npm install
+            
+      # Install NPM Packages
+      - name: NPM Install
+        run: |
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "--- npm install in " {} \;
+    
+                
+      # Install Composer Packages in wp-plugin__ folders
+      - name: Composer Install
+        run: |
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
+        
+
+
+      # Deploy to staging server
+      - name: Sync
+        env:
+          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
+        run: |
+          echo "${{secrets.DEPLOY_KEY}}" > deploy_key
+          chmod 600 ./deploy_key
+          rsync -chav --delete \
+            -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
+            --exclude /deploy_key \
+            --exclude /.git/ \
+            --exclude /.github/ \
+            ./ ${{env.dest}}
+
+
+
+      # Chown to www-data
+      - name: Chown
+        uses: JimCronqvist/action-ssh@master
+        env:
+          dest: '/var/www/vhosts/test/'
+        with:
+          hosts: 'root@londonparkour.com'
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            chown -Rf www-data:www-data ${{env.dest}}
+
+
