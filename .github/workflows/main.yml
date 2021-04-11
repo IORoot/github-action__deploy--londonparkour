@@ -55,19 +55,6 @@ jobs:
       - name: Composer Install
         run: |
           find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
-        
-      # Clone wordpress fresh install
-      - name: Git Clone Wordpress
-        uses: JimCronqvist/action-ssh@master
-        env:
-          dest: '/var/www/vhosts/test/'
-        with:
-          hosts: 'root@londonparkour.com'
-          privateKey: ${{secrets.DEPLOY_KEY}}
-          command: |
-            cd ${{env.dest}}
-            curl -O https://wordpress.org/latest.tar.gz
-            tar --strip-components=1 -xzvf latest.tar.gz
 
 
       # Deploy repo to staging server
@@ -84,7 +71,20 @@ jobs:
             --exclude /.github/ \
             ./ ${{env.dest}}
 
-
+        
+      # Clone wordpress fresh install
+      - name: Install Wordpress
+        uses: JimCronqvist/action-ssh@master
+        env:
+          dest: '/var/www/vhosts/test/'
+        with:
+          hosts: 'root@londonparkour.com'
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            curl -O https://wordpress.org/latest.tar.gz
+            tar --strip-components=1 -xzvf latest.tar.gz
+            
 
       # Chown to www-data:www-data
       - name: Chown
