@@ -65,8 +65,12 @@ jobs:
           hosts: 'root@londonparkour.com'
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
-            git clone https://github.com/WordPress/WordPress.git ${{env.dest}}
-            
+            cd ${{env.dest}}
+            rm -Rf .git
+            git init
+            git remote add origin https://github.com/WordPress/WordPress.git
+            git pull origin master
+            rm -Rf .git
 
       # Deploy repo to staging server
       - name: Sync Repo to Server
