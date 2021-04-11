@@ -66,11 +66,9 @@ jobs:
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             cd ${{env.dest}}
-            rm -Rf .git
-            git init
-            git remote add origin https://github.com/WordPress/WordPress.git
-            git pull origin master
-            rm -Rf .git
+            curl -O https://wordpress.org/latest.tar.gz
+            tar --strip-components=1 -xzvf latest.tar.gz
+
 
       # Deploy repo to staging server
       - name: Sync Repo to Server
