@@ -84,6 +84,7 @@ jobs:
             cd ${{env.dest}}
             curl -O https://wordpress.org/latest.tar.gz
             tar --strip-components=1 -xzvf latest.tar.gz
+            rm latest.tar.gz
             
 
       # Chown to www-data:www-data
