@@ -46,13 +46,14 @@ jobs:
       # Install NPM Packages
       - name: NPM Install
         run: |
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "--- npm install in " {} \;
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
     
                 
       # Install Composer Packages in wp-plugin__ and wp-theme__ folders
       - name: Composer Install
         run: |
-          find . -path "*/wp-plugin*"  -path "*/wp-theme*" ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
 
 
       # Deploy repo to staging server
@@ -60,7 +61,7 @@ jobs:
         run: |
           echo "${{secrets.DEPLOY_KEY}}" > deploy_key
           chmod 600 ./deploy_key
-          rsync -chav \
+          rsync -chav --delete\
             -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
             --exclude /deploy_key \
             --exclude /.git/ \
