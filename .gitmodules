@@ -73,3 +73,6 @@
 [submodule "wp-content/plugins/wp-plugin__page-builder--hero"]
 	path = wp-content/plugins/wp-plugin__page-builder--hero
 	url = https://github.com/IORoot/wp-plugin__page-builder--hero.git
+[submodule "wp-content/plugins/wp-plugin__page-builder--rawcode"]
+	path = wp-content/plugins/wp-plugin__page-builder--rawcode
+	url = https://github.com/IORoot/wp-plugin__page-builder--rawcode.git
