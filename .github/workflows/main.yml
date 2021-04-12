@@ -41,13 +41,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x  
-
-      # Install Theme Node Dependencies
-      - name: Install dependencies
-        run: |
-          cd ./wp-content/themes/wp-theme__londonparkour--v4
-          ls
-          npm install
+          
             
       # Install NPM Packages
       - name: NPM Install
@@ -55,10 +49,10 @@ jobs:
           find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \; -exec echo "--- npm install in " {} \;
     
                 
-      # Install Composer Packages in wp-plugin__ folders
+      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
       - name: Composer Install
         run: |
-          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
+          find . -path "*/wp-plugin*"  -path "*/wp-theme*" ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
 
 
       # Deploy repo to staging server
