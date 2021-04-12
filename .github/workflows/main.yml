@@ -13,9 +13,13 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  server: staging
+  ssh:    'root@londonparkour.com:'
+  dest:   '/var/www/vhosts/test/'
+    
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
 
   # This workflow contains a single job called "build"
   build:
@@ -59,8 +63,6 @@ jobs:
 
       # Deploy repo to staging server
       - name: Sync Repo to Server
-        env:
-          dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
           echo "${{secrets.DEPLOY_KEY}}" > deploy_key
           chmod 600 ./deploy_key
@@ -69,16 +71,14 @@ jobs:
             --exclude /deploy_key \
             --exclude /.git/ \
             --exclude /.github/ \
-            ./ ${{env.dest}}
+            ./ ${{env.ssh}}:${{env.dest}}
 
         
       # Clone wordpress fresh install
       - name: Install Wordpress
         uses: JimCronqvist/action-ssh@master
-        env:
-          dest: '/var/www/vhosts/test/'
         with:
-          hosts: 'root@londonparkour.com'
+          hosts: ${{env.ssh}}
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             cd ${{env.dest}}
@@ -90,10 +90,8 @@ jobs:
       # Chown to www-data:www-data
       - name: Chown
         uses: JimCronqvist/action-ssh@master
-        env:
-          dest: '/var/www/vhosts/test/'
         with:
-          hosts: 'root@londonparkour.com'
+          hosts: ${{env.ssh}}
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             chown -Rf www-data:www-data ${{env.dest}}
