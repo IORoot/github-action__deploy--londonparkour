@@ -56,6 +56,13 @@ jobs:
           find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
 
 
+      # Use the git-crypt key to unlock the database SQL file.
+      - name: Unlock secrets
+        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+
+
       # Deploy repo to staging server
       - name: Sync Repo to Server
         run: |
@@ -90,6 +97,7 @@ jobs:
           command: |
             chown -Rf www-data:www-data ${{env.dest}}
 
+      
 
       # Install Database
       - name: Install Database
@@ -98,8 +106,6 @@ jobs:
           hosts: ${{env.ssh}}
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
-            cd ${{env.dest}}
-            git-crypt unlock ~/.gnupg/github_ci.gpg
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
