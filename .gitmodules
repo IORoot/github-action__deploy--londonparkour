@@ -37,9 +37,6 @@
 [submodule "wp-content/plugins/wp-plugin__page-builder--flickity"]
 	path = wp-content/plugins/wp-plugin__page-builder--flickity
 	url = https://github.com/IORoot/wp-plugin__page-builder--flickity.git
-[submodule "wp-content/plugins/wp-plugin__page-builder--rawcode"]
-	path = wp-content/plugins/wp-plugin__page-builder--rawcode
-	url = https://github.com/IORoot/wp-plugin__page-builder--rawcode.git
 [submodule "wp-content/plugins/wp-plugin__page-builder--isotope"]
 	path = wp-content/plugins/wp-plugin__page-builder--isotope
 	url = https://github.com/IORoot/wp-plugin__page-builder--isotope.git
