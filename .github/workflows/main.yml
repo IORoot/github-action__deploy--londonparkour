@@ -64,7 +64,6 @@ jobs:
           rsync -chav --delete\
             -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
             --exclude /deploy_key \
-            --exclude /.git/ \
             --exclude /.github/ \
             ./ ${{env.ssh}}:${{env.dest}}
 
