@@ -73,3 +73,6 @@
 [submodule "wp-content/themes/wp-theme__londonparkour--v5"]
 	path = wp-content/themes/wp-theme__londonparkour--v5
 	url = https://github.com/IORoot/wp-theme__londonparkour--v5.git
+[submodule "wp-content/plugins/wp-plugin__page-builder--hero"]
+	path = wp-content/plugins/wp-plugin__page-builder--hero
+	url = https://github.com/IORoot/wp-plugin__page-builder--hero.git
