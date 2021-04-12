@@ -7,7 +7,7 @@
 * Note: Define them all, don't skip one if other is already defined
 */
 
-define( 'DB_CREDENTIALS_PATH', dirname( ABSPATH ) ); // cache it for multiple use
+define( 'DB_CREDENTIALS_PATH', dirname( ABSPATH ) );
 define( 'WP_STAGING_SERVER', file_exists( DB_CREDENTIALS_PATH . '/staging-config.php' ) );
 define( 'WP_LIVE_SERVER', file_exists( DB_CREDENTIALS_PATH . '/live-config.php' ) );
 define( 'WP_DEV_SERVER', (!WP_STAGING_SERVER && !WP_LIVE_SERVER));
