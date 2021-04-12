@@ -1,0 +1,120 @@
+{
+    "name": "@devowl-wp/real-utils",
+    "version": "1.6.5",
+    "description": "Create cross-selling ads, about page, rating and newsletter input for WP Real plugins.",
+    "author": "devowl",
+    "homepage": "https://devowl.io",
+    "license": "GPL-3.0-or-later",
+    "private": true,
+    "engines": {
+        "node": ">=14.15.0",
+        "yarn": ">=1.22.5"
+    },
+    "sideEffects": [
+        "**/*.{css,scss,less}",
+        "./src/public/ts/*.tsx"
+    ],
+    "main": "lib/helper.tsx",
+    "files": [
+        "dist",
+        "dev",
+        "languages/frontend"
+    ],
+    "scripts": {
+        "bootstrap": "composer install --prefer-dist",
+        "dev": "yarn grunt scripts:dev",
+        "i18n:generate:backend": "yarn grunt scripts:wordpress:i18n:backend",
+        "i18n:generate:frontend": "yarn grunt scripts:wordpress:i18n:frontend",
+        "build": "yarn grunt scripts:build",
+        "build:js:production": "yarn grunt scripts:build:js:production",
+        "build:js:development": "yarn grunt scripts:build:js:development",
+        "build:webpack:done": "yarn grunt scripts:build:webpack:done",
+        "lint": "yarn grunt scripts:lint",
+        "lint:eslint": "yarn grunt scripts:lint:eslint",
+        "lint:phpcs": "yarn grunt scripts:lint:phpcs",
+        "test": "yarn grunt scripts:test",
+        "test:phpunit": "yarn grunt scripts:test:phpunit",
+        "test:phpunit:coverage": "yarn grunt scripts:test:phpunit:coverage",
+        "test:jest": "yarn grunt scripts:test:jest",
+        "test:jest:coverage": "yarn grunt scripts:test:jest:coverage",
+        "root:run": "cd ../.. && yarn --silent",
+        "grunt": "TS_NODE_TRANSPILE_ONLY=true grunt --gruntfile scripts/Gruntfile.ts --base .",
+        "webpack": "TS_NODE_TRANSPILE_ONLY=true webpack --config ./scripts/webpack.config.ts",
+        "phpunit": "./vendor/bin/phpunit --prepend test/phpunit.xdebug.php --config test/phpunit.xml",
+        "jest": "TS_NODE_TRANSPILE_ONLY=true jest --config test/jest.config.js --rootDir .",
+        "wp": "$(which wp)$(test $CI && echo ' --allow-root')",
+        "wp:weak": "php -n -dextension=phar.so -dextension=json.so -dextension=mbstring.so -dextension=tokenizer.so -dmemory_limit=-1 $(which wp)$(test $CI && echo ' --allow-root')"
+    },
+    "phpunit-coverage-threshold": 80,
+    "browserslist": [
+        "defaults"
+    ],
+    "babel": {
+        "sourceMaps": true,
+        "presets": [
+            "@babel/preset-typescript",
+            [
+                "@babel/preset-env",
+                {
+                    "useBuiltIns": "entry",
+                    "corejs": 3
+                }
+            ],
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            [
+                "@babel/plugin-transform-runtime",
+                {}
+            ],
+            [
+                "@babel/plugin-proposal-decorators",
+                {
+                    "legacy": true
+                }
+            ],
+            [
+                "@babel/plugin-proposal-class-properties",
+                {
+                    "loose": true
+                }
+            ]
+        ]
+    },
+    "license-check": {
+        "spdx": [],
+        "packages": [
+            "ignore-packages-here@1.0.0"
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "./node_modules/@devowl-wp/development/misc/.eslintrc"
+        ]
+    },
+    "eslintIgnore": [
+        "dist",
+        "dev",
+        "docs",
+        "coverage",
+        "node_modules",
+        "vendor",
+        ".yarn-integrity",
+        ".yarn"
+    ],
+    "peerDependencies": {
+        "@devowl-wp/utils": "~1.4.3",
+        "jquery": "*",
+        "setimmediate": "*"
+    },
+    "dependencies": {
+        "core-js": "~3.8.0",
+        "enzyme": "~3.11.0",
+        "enzyme-adapter-react-16": "~1.15.5",
+        "react-test-renderer": "~16.13.1"
+    },
+    "devDependencies": {
+        "@devowl-wp/development": "^1.3.0",
+        "@types/jquery": "~3.5.4"
+    }
+}
