@@ -31,6 +31,7 @@ jobs:
         with:
           submodules: recursive
           
+      
       # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
@@ -54,11 +55,10 @@ jobs:
       - name: Composer Install
         run: |
           find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \; -exec echo "--- composer install in " {} \; 
-        
 
 
-      # Deploy to staging server
-      - name: Sync
+      # Deploy repo to staging server
+      - name: Sync Repo to Server
         env:
           dest: 'root@londonparkour.com:/var/www/vhosts/test/'
         run: |
@@ -71,9 +71,23 @@ jobs:
             --exclude /.github/ \
             ./ ${{env.dest}}
 
+        
+      # Clone wordpress fresh install
+      - name: Install Wordpress
+        uses: JimCronqvist/action-ssh@master
+        env:
+          dest: '/var/www/vhosts/test/'
+        with:
+          hosts: 'root@londonparkour.com'
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            curl -O https://wordpress.org/latest.tar.gz
+            tar --strip-components=1 -xzvf latest.tar.gz
+            rm latest.tar.gz
+            
 
-
-      # Chown to www-data
+      # Chown to www-data:www-data
       - name: Chown
         uses: JimCronqvist/action-ssh@master
         env:
