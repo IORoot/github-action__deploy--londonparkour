@@ -38,7 +38,7 @@ jobs:
       
       # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 14.x  
           
@@ -47,7 +47,15 @@ jobs:
       - name: NPM Install
         run: |
           find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
-    
+ 
+     # Install SHARP (sharp.pixelplumbing.com)
+      - name: Sharp.js image conversion to webp
+        run: |
+          npm install -g sharp-cli
+          cd ${{env.dest}}/wp-content/uploads
+          sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
+          sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
+          
                 
       # Install Composer Packages in wp-plugin__ and wp-theme__ folders
       - name: Composer Install
