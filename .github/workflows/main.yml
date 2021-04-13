@@ -106,3 +106,14 @@ jobs:
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
             
+
+
+      # Cleanup - remove .git dir
+      - name: Remove GIT
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            rm -Rf .git
