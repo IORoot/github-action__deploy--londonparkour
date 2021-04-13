@@ -48,11 +48,14 @@ jobs:
         run: |
           find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
  
+ 
      # Install SHARP (sharp.pixelplumbing.com)
-      - name: Sharp.js image conversion to webp
+      - name: Sharp.js WEBP Image Conversion
         run: |
           npm install -g sharp-cli
-          cd ${{env.dest}}/wp-content/uploads
+          ls -la
+          pwd
+          cd ./wp-content/uploads
           sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
           sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
           
