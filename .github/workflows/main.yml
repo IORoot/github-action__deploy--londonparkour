@@ -94,7 +94,9 @@ jobs:
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             cd ${{env.dest}}
+            git stash
             git-crypt unlock ~/.gnupg/github_ci.gpg
+            git stash pop
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
