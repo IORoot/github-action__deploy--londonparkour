@@ -1,78 +1,104 @@
 [submodule "wp-content/plugins/wp-plugin__REST--labs"]
 	path = wp-content/plugins/wp-plugin__REST--labs
 	url = https://github.com/IORoot/wp-plugin__REST--labs.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__pulse--stack"]
 	path = wp-content/plugins/wp-plugin__pulse--stack
 	url = https://github.com/IORoot/wp-plugin__pulse--stack.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__acf--codemirror"]
 	path = wp-content/plugins/wp-plugin__acf--codemirror
 	url = https://github.com/IORoot/wp-plugin__acf--codemirror.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__oauth--gCAL"]
 	path = wp-content/plugins/wp-plugin__oauth--gCAL
 	url = https://github.com/IORoot/wp-plugin__oauth--gCAL.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__admin-themes"]
 	path = wp-content/plugins/wp-plugin__admin-themes
 	url = https://github.com/IORoot/wp-plugin__admin-themes.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__advanced-forms--replyto"]
 	path = wp-content/plugins/wp-plugin__advanced-forms--replyto
 	url = https://github.com/IORoot/wp-plugin__advanced-forms--replyto.git
+	ignore = dirty
 [submodule "wp-content/plugins/anime-fx__library"]
 	path = wp-content/plugins/anime-fx__library
 	url = https://github.com/IORoot/anime-fx__library.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__cpt--events"]
 	path = wp-content/plugins/wp-plugin__cpt--events
 	url = https://github.com/IORoot/wp-plugin__cpt--events.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__cpt--wiki"]
 	path = wp-content/plugins/wp-plugin__cpt--wiki
 	url = https://github.com/IORoot/wp-plugin__cpt--wiki.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__gcal-sync"]
 	path = wp-content/plugins/wp-plugin__gcal-sync
 	url = https://github.com/IORoot/wp-plugin__gcal-sync.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-pluging__menu--code-inject"]
 	path = wp-content/plugins/wp-pluging__menu--code-inject
 	url = https://github.com/IORoot/wp-pluging__menu--code-inject.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder"]
 	path = wp-content/plugins/wp-plugin__page-builder
 	url = https://github.com/IORoot/wp-plugin__page-builder.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder--flickity"]
 	path = wp-content/plugins/wp-plugin__page-builder--flickity
 	url = https://github.com/IORoot/wp-plugin__page-builder--flickity.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder--isotope"]
 	path = wp-content/plugins/wp-plugin__page-builder--isotope
 	url = https://github.com/IORoot/wp-plugin__page-builder--isotope.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder--video-rotator"]
 	path = wp-content/plugins/wp-plugin__page-builder--video-rotator
 	url = https://github.com/IORoot/wp-plugin__page-builder--video-rotator.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder--yt-lite"]
 	path = wp-content/plugins/wp-plugin__page-builder--yt-lite
 	url = https://github.com/IORoot/wp-plugin__page-builder--yt-lite.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__andyp-plugins"]
 	path = wp-content/plugins/wp-plugin__andyp-plugins
 	url = https://github.com/IORoot/wp-plugin__andyp-plugins.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__stripe-payments"]
 	path = wp-content/plugins/wp-plugin__stripe-payments
 	url = https://github.com/IORoot/wp-plugin__stripe-payments.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__theme--custom-structure"]
 	path = wp-content/plugins/wp-plugin__theme--custom-structure
 	url = https://github.com/IORoot/wp-plugin__theme--custom-structure.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__thumbnail-folders"]
 	path = wp-content/plugins/wp-plugin__thumbnail-folders
 	url = https://github.com/IORoot/wp-plugin__thumbnail-folders.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__footer"]
 	path = wp-content/plugins/wp-plugin__footer
 	url = https://github.com/IORoot/wp-plugin__footer.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__picture-images"]
 	path = wp-content/plugins/wp-plugin__picture-images
 	url = https://github.com/IORoot/wp-plugin__picture-images.git
+	ignore = dirty
 [submodule "wp-content/uploads"]
 	path = wp-content/uploads
 	url = https://github.com/IORoot/uploads.git
+	ignore = dirty
 [submodule "wp-content/themes/wp-theme__londonparkour--v5"]
 	path = wp-content/themes/wp-theme__londonparkour--v5
 	url = https://github.com/IORoot/wp-theme__londonparkour--v5.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder--hero"]
 	path = wp-content/plugins/wp-plugin__page-builder--hero
 	url = https://github.com/IORoot/wp-plugin__page-builder--hero.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__page-builder--rawcode"]
 	path = wp-content/plugins/wp-plugin__page-builder--rawcode
 	url = https://github.com/IORoot/wp-plugin__page-builder--rawcode.git
+	ignore = dirty
