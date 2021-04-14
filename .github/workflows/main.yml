@@ -17,6 +17,7 @@ env:
   server: staging
   ssh:    'root@londonparkour.com'
   dest:   '/var/www/vhosts/staging.londonparkour.com/'
+  theme:  'wp-theme__londonparkour--v5'
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -56,7 +57,14 @@ jobs:
           cd ./wp-content/uploads
           sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
           sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
-          
+
+
+      # Install PostCSS & PostCSS-CLI
+      - name: PostCSS for tailwind
+        run: |
+          npm install -g postcss postcss-cli
+          cd ./wp-content/themes/${{env.theme}}/src/assets/css
+          NODE_ENV=production postcss tailwind.css -o style.css
           
           
       # Install Composer Packages in wp-plugin__ and wp-theme__ folders
