@@ -95,7 +95,6 @@ jobs:
           command: |
             cd ${{env.dest}}
             git add --all
-            git rm -rf *
             git stash
             git-crypt unlock ~/.gnupg/github_ci.gpg
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
