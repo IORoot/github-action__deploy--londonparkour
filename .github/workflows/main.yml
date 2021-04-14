@@ -85,6 +85,25 @@ jobs:
             --exclude /.github/ \
             ./ ${{env.ssh}}:${{env.dest}}
 
+
+
+      # Install Database
+      - name: Install Database
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            git stash
+            git-crypt unlock ~/.gnupg/github_ci.gpg
+            mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
+            mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
+            mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
+            
+
+
+
         
       # Clone wordpress fresh install
       - name: Install Wordpress
@@ -110,20 +129,6 @@ jobs:
 
       
 
-      # Install Database
-      - name: Install Database
-        uses: JimCronqvist/action-ssh@master
-        with:
-          hosts: ${{env.ssh}}
-          privateKey: ${{secrets.DEPLOY_KEY}}
-          command: |
-            cd ${{env.dest}}
-            git stash
-            git-crypt unlock ~/.gnupg/github_ci.gpg
-            mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
-            mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
-            mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
-            
 
 
       # Cleanup - remove .git dir
