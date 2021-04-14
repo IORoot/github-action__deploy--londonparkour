@@ -95,6 +95,7 @@ jobs:
           command: |
             cd ${{env.dest}}
             git add --all
+            git commit -m "dummy commit for git-crypt"
             git stash
             git-crypt unlock ~/.gnupg/github_ci.gpg
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
