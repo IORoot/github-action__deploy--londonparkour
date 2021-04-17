@@ -60,11 +60,11 @@ jobs:
 
 
       # Install PostCSS & PostCSS-CLI
-      - name: PostCSS for tailwind
-        run: |
-          npm install -g postcss postcss-cli
-          cd ./wp-content/themes/${{env.theme}}/src/assets/css
-          NODE_ENV=production postcss tailwind.css -o style.css
+      #- name: PostCSS for tailwind
+      #  run: |
+      #    npm install -g postcss postcss-cli
+      #    cd ./wp-content/themes/${{env.theme}}/src/assets/css
+      #    NODE_ENV=production postcss tailwind.css -o style.css
           
           
       # Install Composer Packages in wp-plugin__ and wp-theme__ folders
