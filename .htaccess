@@ -190,7 +190,7 @@ Redirect 301 /services 				/classes/
 Redirect 301 /class 				/classes/
 RewriteRule  ^/?class/(.\*)$ 		/classes/ [R=301,L]
 # v4 -> v5. Private Sessions -> (groups)
-Redirect 301 /privatesessions 		/group/
+Redirect 301 /privatesessions 		/grouptraining/
 # v4 -> v5. Custom Booking Pages  -> bookings
 Redirect 301 /bookings/youth 		/bookings/
 Redirect 301 /bookings/custom 		/bookings/
@@ -201,7 +201,7 @@ Redirect 301 /tutorial-playlist 	https://labs.londonparkour.com
 Redirect 301 /tutorial-categories 	https://labs.londonparkour.com
 Redirect 301 /tutorial-video 		https://labs.londonparkour.com
 # v3 -> v4. Support -> Posts
-Redirect 301 /support/introduction 				/wiki
+Redirect 301 /support/introduction 				/wikis
 Redirect 301 /support/coaching-team 			/wiki/coaches/
 Redirect 301 /support/media-pack 			 	/wiki/downloads
 Redirect 301 /support/class-terms-conditions 	/wiki/terms-of-service
@@ -209,7 +209,7 @@ Redirect 301 /support/equity-policy 			/wiki/equality-policy
 Redirect 301 /support/refunds-returns 			/wiki/pricing
 Redirect 301 /support/drop-ins 					/wiki/pricing
 Redirect 301 /support/online-payments 			/wiki/pricing
-Redirect 301 /support/music-playlists 			/wiki
+Redirect 301 /support/music-playlists 			/wikis
 # v4 -> v5 Posts -> Support
 Redirect 301 /support 				/wikis/
 Redirect 301 /about 				/wikis/
