@@ -123,8 +123,8 @@ jobs:
           hosts: ${{env.ssh}}
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
-            cp ~/secrets/gcal-sync.json   ${{env.ssh}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
-            cp ~/secrets/oauth--gCAL.json ${{env.ssh}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
+            cp ~/secrets/gcal-sync.json   ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
+            cp ~/secrets/oauth--gCAL.json ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
 
 
 
