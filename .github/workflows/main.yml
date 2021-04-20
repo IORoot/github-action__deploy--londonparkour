@@ -136,4 +136,4 @@ jobs:
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             cd ${{env.dest}}
-            rm -Rf .git
+            
