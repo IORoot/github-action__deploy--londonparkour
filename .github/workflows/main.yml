@@ -116,24 +116,14 @@ jobs:
             rm latest.tar.gz
             
 
-      # Chown to www-data:www-data
-      - name: Chown
+      # git-crypt unlock
+      - name: git-crypt unlock plugins
         uses: JimCronqvist/action-ssh@master
         with:
           hosts: ${{env.ssh}}
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
-            chown -Rf www-data:www-data ${{env.dest}}
-
-
-
-
-      # Cleanup - remove .git dir
-      - name: Remove GIT
-        uses: JimCronqvist/action-ssh@master
-        with:
-          hosts: ${{env.ssh}}
-          privateKey: ${{secrets.DEPLOY_KEY}}
-          command: |
-            cd ${{env.dest}}
-            
+            cd ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync
+            git-crypt unlock ~/.gnupg/github_ci.gpg
+            cd ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL
+            git-crypt unlock ~/.gnupg/github_ci.gpg
