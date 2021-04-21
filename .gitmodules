@@ -102,3 +102,6 @@
 	path = wp-content/plugins/wp-plugin__page-builder--rawcode
 	url = https://github.com/IORoot/wp-plugin__page-builder--rawcode.git
 	ignore = dirty
+[submodule "wp-plugin__cpt--amp"]
+	path = wp-plugin__cpt--amp
+	url = https://github.com/IORoot/wp-plugin__cpt--amp.git
