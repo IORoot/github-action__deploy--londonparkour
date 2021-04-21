@@ -105,3 +105,6 @@
 [submodule "wp-plugin__cpt--amp"]
 	path = wp-plugin__cpt--amp
 	url = https://github.com/IORoot/wp-plugin__cpt--amp.git
+[submodule "wp-content/plugins/wp-plugin__cpt--amp"]
+	path = wp-content/plugins/wp-plugin__cpt--amp
+	url = https://github.com/IORoot/wp-plugin__cpt--amp.git
