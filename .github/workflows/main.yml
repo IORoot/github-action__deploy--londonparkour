@@ -59,7 +59,7 @@ jobs:
           sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
 
 
-      Install PostCSS & PostCSS-CLI
+      # Install PostCSS & PostCSS-CLI
       - name: PostCSS for tailwind
         run: |
           npm install -g postcss postcss-cli
