@@ -125,6 +125,7 @@ jobs:
           command: |
             cp ~/secrets/gcal-sync.json   ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
             cp ~/secrets/oauth--gCAL.json ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
+            cp ${{env.dest}}/../${{env.server}}-config.php ${{env.dest}}/wp-config.php
 
 
 
