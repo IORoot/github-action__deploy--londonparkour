@@ -1,30 +1,5 @@
 <?php
 
-/**
-* Define type of server
-*
-* Depending on the type other stuff can be configured
-* Note: Define them all, don't skip one if other is already defined
-*/
-
-define( 'DB_CREDENTIALS_PATH', dirname( ABSPATH ) );
-define( 'WP_STAGING_SERVER', file_exists( DB_CREDENTIALS_PATH . '/staging-config.php' ) );
-define( 'WP_LIVE_SERVER', file_exists( DB_CREDENTIALS_PATH . '/live-config.php' ) );
-define( 'WP_DEV_SERVER', (!WP_STAGING_SERVER && !WP_LIVE_SERVER));
-
-
-/**
-* Load DB credentials
-*/
-
-if ( WP_STAGING_SERVER )
-	require DB_CREDENTIALS_PATH . '/staging-config.php';
-	
-if ( WP_LIVE_SERVER )
-	require DB_CREDENTIALS_PATH . '/live-config.php';
-
-if ( WP_DEV_SERVER ){
-
 	/** Site Definition */
 	define('WP_HOME',	'http://dev.londonparkour.com');
 	define('WP_SITEURL','http://dev.londonparkour.com');
@@ -58,12 +33,11 @@ if ( WP_DEV_SERVER ){
 	define('QM_NO_JQUERY', 				true);
 	define('ALLOW_UNFILTERED_UPLOADS', 	true);
 	define('WP_CACHE', 					true); // Added by WP Rocket
-}
 
 
-/** Absolute path to the WordPress directory. */
-if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+	/** Absolute path to the WordPress directory. */
+	if ( !defined('ABSPATH') )
+		define('ABSPATH', dirname(__FILE__) . '/');
 
-/** Sets up WordPress vars and included files. */
-require_once(ABSPATH . 'wp-settings.php');
+	/** Sets up WordPress vars and included files. */
+	require_once(ABSPATH . 'wp-settings.php');
