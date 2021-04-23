@@ -186,9 +186,10 @@ FileETag None
 
 # BEGIN 301 Redirects
 # v3 -> v4. Classes
-Redirect 301 /services 				/classes/
-Redirect 301 /class 				/classes/
-RewriteRule  ^/?class/(.\*)$ 		/classes/ [R=301,L]
+Redirect 301 /services 				                /classes/
+Redirect 301 /class 				                /classes/
+RewriteRule  ^/?class/(.\*)$ 		                /classes/ [R=301,L]
+Redirect 301 /classes/stripe-checkout-result/	    /stripe-checkout-result/
 # v4 -> v5. Private Sessions -> (groups)
 Redirect 301 /privatesessions 		/grouptraining/
 # v4 -> v5. Custom Booking Pages  -> bookings
@@ -200,41 +201,29 @@ Redirect 301 /tutorials 			https://labs.londonparkour.com
 Redirect 301 /tutorial-playlist 	https://labs.londonparkour.com
 Redirect 301 /tutorial-categories 	https://labs.londonparkour.com
 Redirect 301 /tutorial-video 		https://labs.londonparkour.com
-# v3 -> v4. Support -> Posts
-Redirect 301 /support/introduction 				/wikis
-Redirect 301 /support/coaching-team 			/wiki/coaches/
-Redirect 301 /support/media-pack 			 	/wiki/downloads
-Redirect 301 /support/class-terms-conditions 	/wiki/terms-of-service
-Redirect 301 /support/equity-policy 			/wiki/equality-policy
-Redirect 301 /support/refunds-returns 			/wiki/pricing
-Redirect 301 /support/drop-ins 					/wiki/pricing
-Redirect 301 /support/online-payments 			/wiki/pricing
-Redirect 301 /support/music-playlists 			/wikis
 # v4 -> v5 Posts -> Support
-Redirect 301 /support 				/wikis/
-Redirect 301 /about 				/wikis/
-Redirect 301 /beginner-class	    /wiki/beginner-class
-Redirect 301 /personal-training-pt	/wiki/personal-training-pt
-Redirect 301 /youth-class	        /wiki/youth-class
-Redirect 301 /free-class	        /wiki/free-class
-Redirect 301 /class-locations	    /wiki/class-locations
-Redirect 301 /hiring-us	            /wiki/hiring-us
-Redirect 301 /pricing	            /wiki/pricing
-Redirect 301 /gift-cards	        /wiki/gift-cards
-Redirect 301 /discounts	            /wiki/discounts
-Redirect 301 /injury-professionals	/wiki/injury-professionals
-Redirect 301 /coaches	            /wiki/coaches
-Redirect 301 /student-waiver	    /wiki/student-waiver
-Redirect 301 /contacting-us	        /wiki/contacting-us
-Redirect 301 /photography-video	    /wiki/photography-video
-Redirect 301 /equality-policy	    /wiki/equality-policy
-Redirect 301 /code-of-conduct	    /wiki/code-of-conduct
-Redirect 301 /terms-of-service	    /wiki/terms-of-service
-Redirect 301 /news-instagram	    /wiki/news-instagram
-Redirect 301 /downloads	            /wiki/downloads
-Redirect 301 /classes/waiver/	    /wiki/wiki/student-waiver
-Redirect 301 /classes/stripe-checkout-result/	    /stripe-checkout-result/
+Redirect 301 /about 				/support/
+Redirect 301 /beginner-class	    /support/beginner-class
+Redirect 301 /personal-training-pt	/support/personal-training-pt
+Redirect 301 /youth-class	        /support/youth-class
+Redirect 301 /free-class	        /support/free-class
+Redirect 301 /class-locations	    /support/class-locations
+Redirect 301 /hiring-us	            /support/hiring-us
+Redirect 301 /pricing	            /support/pricing
+Redirect 301 /gift-cards	        /support/gift-cards
+Redirect 301 /discounts	            /support/discounts
+Redirect 301 /injury-professionals	/support/injury-professionals
+Redirect 301 /coaches	            /support/coaches
+Redirect 301 /student-waiver	    /support/student-waiver
+Redirect 301 /contacting-us	        /support/contacting-us
+Redirect 301 /photography-video	    /support/photography-video
+Redirect 301 /equality-policy	    /support/equality-policy
+Redirect 301 /code-of-conduct	    /support/code-of-conduct
+Redirect 301 /terms-of-service	    /support/terms-of-service
+Redirect 301 /news-instagram	    /support/news-instagram
+Redirect 301 /downloads	            /support/downloads
+Redirect 301 /classes/waiver/	    /support/student-waiver
 # v4 -> v5. 
-Redirect 301 /mobile-app 					/wiki/support
-Redirect 301 /support/mobile-app-changelog 	/wiki/support
+Redirect 301 /mobile-app 					/support
+Redirect 301 /support/mobile-app-changelog 	/support
 # END 301 Redirects

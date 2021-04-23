@@ -30,10 +30,6 @@
 	path = wp-content/plugins/wp-plugin__cpt--events
 	url = https://github.com/IORoot/wp-plugin__cpt--events.git
 	ignore = dirty
-[submodule "wp-content/plugins/wp-plugin__cpt--wiki"]
-	path = wp-content/plugins/wp-plugin__cpt--wiki
-	url = https://github.com/IORoot/wp-plugin__cpt--wiki.git
-	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__gcal-sync"]
 	path = wp-content/plugins/wp-plugin__gcal-sync
 	url = https://github.com/IORoot/wp-plugin__gcal-sync.git
@@ -108,3 +104,6 @@
 [submodule "wp-content/plugins/wp-plugin__cpt--amp"]
 	path = wp-content/plugins/wp-plugin__cpt--amp
 	url = https://github.com/IORoot/wp-plugin__cpt--amp.git
+[submodule "wp-content/plugins/wp-plugin__cpt--support"]
+	path = wp-content/plugins/wp-plugin__cpt--support
+	url = https://github.com/IORoot/wp-plugin__cpt--support.git
