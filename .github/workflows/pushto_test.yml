@@ -31,7 +31,7 @@ jobs:
 
       - name: Start Apache2
         run: |
-          sudo apache2ctl startInvoking 'systemctl start apache2'.
+          sudo apache2ctl startInvoking 'systemctl start apache2'
 
 
       - name: where are we?
