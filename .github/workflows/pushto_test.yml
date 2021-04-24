@@ -65,3 +65,8 @@ jobs:
         run: |
           find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
           find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+
+      - name: where are we?
+        run: |
+          pwd
+          ls -la
