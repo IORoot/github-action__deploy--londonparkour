@@ -34,6 +34,9 @@ jobs:
         with:
           submodules: recursive
 
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
 
       - name: Take photo of staging
         uses: JonathanTreffler/full-website-screenshot-action@v1.0
