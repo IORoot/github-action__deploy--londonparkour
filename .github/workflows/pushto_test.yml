@@ -28,20 +28,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      # Install onto Runner
-      - name: Install Apache2
-        run: |
-          sudo apt update
-          sudo apt install apache2
-
 
       - name: where are we?
         run: |
           pwd
           mysql --version
           php --version
-          apache --version
-          
+          apache2 --version
+
 
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
