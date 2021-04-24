@@ -15,7 +15,7 @@ on:
 
 env:
   url:          'https://staging.londonparkour.com'
-  destination:  './screenshot.jpg'
+  destination:  './staging.londonparkour.com.jpg'
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -53,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: screenshot
-          path: ./staging.londonparkour.com.jpg
+          path: ${{ env.destination }}
 
