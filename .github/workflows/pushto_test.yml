@@ -1,3 +1,6 @@
+# mysql  Ver 8.0.23-0ubuntu0.20.04.1 for Linux on x86_64 ((Ubuntu))
+# PHP 8.0.3 (cli) (built: Mar  5 2021 07:54:13) ( NTS )
+
 name: Testing
 
 # Controls when the action will run. 
@@ -25,13 +28,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
+      # Install onto Runner
+      - name: Install Apache2
+        run: |
+          sudo apt update
+          sudo apt install apache2
+
+
       - name: where are we?
         run: |
           pwd
           mysql --version
           php --version
           apache --version
-
+          
 
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
