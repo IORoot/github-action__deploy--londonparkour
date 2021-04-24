@@ -27,22 +27,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
-
-      - name: Start Apache2
-        run: |
-          source /etc/apache2/envvars
-          sudo systemctl status apache2
-          sudo systemctl start apache2
-          
-
-
-      - name: where are we?
-        run: |
-          pwd
-          mysql --version
-          php --version
-          apache2 --version
           
 
       # Checkout repo with submodules
