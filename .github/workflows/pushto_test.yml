@@ -29,13 +29,18 @@ jobs:
     steps:
 
 
+      - name: Start Apache2
+        run: |
+          sudo apache2ctl startInvoking 'systemctl start apache2'.
+
+
       - name: where are we?
         run: |
           pwd
           mysql --version
           php --version
           apache2 --version
-
+          
 
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
