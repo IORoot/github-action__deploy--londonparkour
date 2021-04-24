@@ -1,0 +1,67 @@
+name: Testing
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ test ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  server: none
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+          
+      # Checkout repo with submodules
+      # https://github.com/marketplace/actions/checkout-submodules 
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          
+      
+      # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x  
+          
+            
+      # Install NPM Packages
+      - name: NPM Install
+        run: |
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
+
+
+      # Install SHARP (sharp.pixelplumbing.com)
+      - name: Sharp.js WEBP Image Conversion
+        run: |
+          npm install -g sharp-cli
+          cd ./wp-content/uploads
+          sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
+          sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
+
+
+      # Install PostCSS & PostCSS-CLI
+      - name: PostCSS for tailwind
+        run: |
+          npm install -g postcss postcss-cli
+          cd ./wp-content/themes/${{env.theme}}/src/assets/
+          NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
+          
+          
+      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
+      - name: Composer Install
+        run: |
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
