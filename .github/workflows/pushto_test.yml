@@ -21,72 +21,27 @@ env:
 jobs:
 
   # This workflow contains a single job called "build"
-  build:
+  test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-          
 
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-          
-
-      # Clone wordpress fresh install
-      - name: Install Wordpress
-        run: |
-          curl -O https://wordpress.org/latest.tar.gz
-          tar --strip-components=1 -xzvf latest.tar.gz
-          rm latest.tar.gz
 
 
-      # Install Database
-      - name: Install Database
-        run: |
-          git stash
-          git-crypt unlock ${{ secrets.GPG_SIGNING_KEY }}
-          git stash pop
-          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
-          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
-          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
-
-
-      # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
+      - name: Take photo of staging
+        uses: "lannonbr/puppeteer-screenshot-action@1.0.0"
         with:
-          node-version: 14.x  
-          
-            
-      # Install NPM Packages
-      - name: NPM Install
-        run: |
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
+          url: https://staging.londonparkour.com
 
 
-      # Install SHARP (sharp.pixelplumbing.com)
-      - name: Sharp.js WEBP Image Conversion
+      - name: what?
         run: |
-          npm install -g sharp-cli
-          cd ./wp-content/uploads
-          sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
-          sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
-
-
-      # Install PostCSS & PostCSS-CLI
-      - name: PostCSS for tailwind
-        run: |
-          npm install -g postcss postcss-cli
-          cd ./wp-content/themes/${{env.theme}}/src/assets/
-          NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
-          
-          
-      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
-      - name: Composer Install
-        run: |
-          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
-          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+          ls -la
+      
