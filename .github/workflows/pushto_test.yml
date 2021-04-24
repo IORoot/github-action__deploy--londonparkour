@@ -23,6 +23,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
           
+
+      # Clone wordpress fresh install
+      - name: Install Wordpress
+        run: |
+          curl -O https://wordpress.org/latest.tar.gz
+          tar --strip-components=1 -xzvf latest.tar.gz
+          rm latest.tar.gz
+
+
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
@@ -34,7 +43,8 @@ jobs:
         run: |
           pwd
           ls -la
-          
+
+
       # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
       - name: Use Node.js 14.x
         uses: actions/setup-node@v2
