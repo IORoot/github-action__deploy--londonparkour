@@ -35,13 +35,11 @@ jobs:
 
       # https://github.com/sindresorhus/capture-website-cli
       - name: Install capture-website-cli
-          shell: bash
-          run: |
-            npm install --global capture-website-cli 1> /dev/null
+        run: |
+          npm install --global capture-website-cli 1> /dev/null
         
 
       - name: Screenshot Website
-        shell: bash
         run: |
           capture-website ${{ env.url }} --output ${{ env.destination }} --full-page --type=jpeg --quality=0.5
 
