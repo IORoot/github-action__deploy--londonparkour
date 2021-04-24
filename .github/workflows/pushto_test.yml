@@ -31,7 +31,9 @@ jobs:
 
       - name: Start Apache2
         run: |
-          sudo apache2ctl startInvoking 'systemctl start apache2'
+          sudo systemctl status apache2
+          sudo systemctl start apache2
+          source /etc/apache2/envvars
 
 
       - name: where are we?
