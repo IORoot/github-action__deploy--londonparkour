@@ -9,8 +9,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# GPG Key : https://stackoverflow.com/questions/61096521/how-to-use-gpg-key-in-github-actions
 env:
-  theme:  'wp-theme__londonparkour--v5'
+  theme:    'wp-theme__londonparkour--v5'
+
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,6 +24,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+      - name: where are we?
+        run: |
+          pwd
+          mysql --version
+          php --version
+          apache --version
 
 
       # Checkout repo with submodules
@@ -38,11 +47,16 @@ jobs:
           tar --strip-components=1 -xzvf latest.tar.gz
           rm latest.tar.gz
 
-      
-      - name: where are we?
+
+      # Install Database
+      - name: Install Database
         run: |
-          pwd
-          ls -la
+          git stash
+          git-crypt unlock ${{ secrets.GPG_SIGNING_KEY }}
+          git stash pop
+          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
+          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
+          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
 
 
       # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
