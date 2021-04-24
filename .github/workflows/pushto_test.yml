@@ -14,7 +14,7 @@ on:
 
 
 env:
-  url:          'staging.londonparkour.com'
+  url:          'https://staging.londonparkour.com'
   destination:  './screenshot.jpg'
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
