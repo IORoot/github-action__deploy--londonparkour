@@ -31,9 +31,10 @@ jobs:
 
       - name: Start Apache2
         run: |
+          source /etc/apache2/envvars
           sudo systemctl status apache2
           sudo systemctl start apache2
-          source /etc/apache2/envvars
+          
 
 
       - name: where are we?
