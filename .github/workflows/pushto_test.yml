@@ -12,10 +12,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# GPG Key : https://stackoverflow.com/questions/61096521/how-to-use-gpg-key-in-github-actions
-env:
-  theme:    'wp-theme__londonparkour--v5'
 
+env:
+  url:          'staging.londonparkour.com'
+  destination:  './screenshot.jpg'
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,21 +28,22 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      # Checkout repo with submodules
-      # https://github.com/marketplace/actions/checkout-submodules 
-      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
         with:
-          submodules: recursive
+          node-version: 14.x  
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14'
+      # https://github.com/sindresorhus/capture-website-cli
+      - name: Install capture-website-cli
+          shell: bash
+          run: |
+            npm install --global capture-website-cli 1> /dev/null
+        
 
-      - name: Take photo of staging
-        uses: JonathanTreffler/full-website-screenshot-action@v1.0
-        with:
-          url: https://staging.londonparkour.com
-          destination: ./staging.londonparkour.com.png
+      - name: Screenshot Website
+        shell: bash
+        run: |
+          capture-website ${{ env.url }} --output ${{ env.destination }} --full-page --type=jpeg --quality=0.5
 
 
       - name: what?
@@ -54,5 +55,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: screenshot
-          path: ./staging.londonparkour.com.png
+          path: ./staging.londonparkour.com.jpg
 
