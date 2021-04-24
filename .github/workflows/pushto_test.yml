@@ -36,12 +36,20 @@ jobs:
 
 
       - name: Take photo of staging
-        uses: "lannonbr/puppeteer-screenshot-action@1.0.0"
+        uses: JonathanTreffler/full-website-screenshot-action@v1.0
         with:
           url: https://staging.londonparkour.com
+          destination: ./staging.londonparkour.com.png
 
 
       - name: what?
         run: |
           ls -la
       
+
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: ./staging.londonparkour.com.png
+
