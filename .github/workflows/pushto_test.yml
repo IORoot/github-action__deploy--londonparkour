@@ -32,6 +32,14 @@ jobs:
         with:
           submodules: recursive
 
+
+      # Unlock with git-crypt.
+      - name: Unlock secrets
+        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+
+          
       - name: Setup Apache
         run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
 
@@ -58,14 +66,6 @@ jobs:
           curl -O https://wordpress.org/latest.tar.gz
           tar --strip-components=1 -xzvf latest.tar.gz
           rm latest.tar.gz
-
-
-      # Unlock with git-crypt.
-      - name: Unlock secrets
-        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
-        env:
-          GIT_CRYPT_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-
 
 
       # Install Database once decrypted with git-crypt and GPG key.
