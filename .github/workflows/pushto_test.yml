@@ -48,6 +48,7 @@ jobs:
 
 
       # Install Database once decrypted with git-crypt and GPG key.
+      # https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
       - name: Install Database
         run: |
           mysql -uroot -h127.0.0.1 -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
@@ -90,7 +91,8 @@ jobs:
 
       - name: Ownership
         run: |
-          chown -Rf www-data:www-data .
+          ls -la
+          sudo chown -Rf www-data:www-data ./
 
 
       - name: Screenshot Website
