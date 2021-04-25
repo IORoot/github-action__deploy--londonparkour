@@ -23,6 +23,17 @@ jobs:
       fail-fast: false
 
 
+    services:
+        mysql:
+            image: mysql:5.7
+            env:
+                MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                MYSQL_DATABASE: staging_londonparkour_com
+            ports:
+                - 3306
+            options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+
 
     steps:
 
@@ -43,10 +54,9 @@ jobs:
       # Install Database once decrypted with git-crypt and GPG key.
       - name: Install Database
         run: |
+          head -n 10 ./wp-content/database/dev_londonparkour_com.sql
           sudo service mysql status
           sudo service mysql restart
-          cat /var/run/mysqld/mysqld.sock
-          head -n 10 ./wp-content/database/dev_londonparkour_com.sql
           mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
           mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
           mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
