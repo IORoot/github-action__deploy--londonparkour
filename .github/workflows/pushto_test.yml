@@ -47,8 +47,8 @@ jobs:
       # Install Database once decrypted with git-crypt and GPG key.
       - name: Install Database
         run: |
-          mysql -uroot -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
-          mysql -uroot -e "CREATE DATABASE staging_londonparkour_com"
+          mysql -uroot -h127.0.0.1 -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
+          mysql -uroot -h127.0.0.1 -e "CREATE DATABASE staging_londonparkour_com"
           mysql -uroot -h127.0.0.1 staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
 
 
