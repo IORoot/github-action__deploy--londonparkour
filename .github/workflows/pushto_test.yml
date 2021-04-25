@@ -1,56 +1,56 @@
+# Ubuntu-latest versions
 # mysql  Ver 8.0.23-0ubuntu0.20.04.1 for Linux on x86_64 ((Ubuntu))
 # PHP 8.0.3 (cli) (built: Mar  5 2021 07:54:13) ( NTS )
 
 name: Testing
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ test ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 
-env:
-  url:          'https://staging.londonparkour.com'
-  destination:  './staging.londonparkour.com.jpg'
-    
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  # This workflow contains a single job called "build"
+  # Test Job
+  # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
   test:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    name: Testing Website Update
+    strategy:
+      matrix:
+        php: [ '7.4' ]
+      fail-fast: false
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
+
     steps:
-
-
-      - name: Start Apache2
-        run: |
-          source /etc/apache2/envvars
-          sudo systemctl status apache2
-          sudo systemctl start apache2
-
-
-
-      - name: where are we?
-        run: |
-          pwd
-          mysql --version
-          php --version
-          apache2 --version
-          
 
       # Checkout repo with submodules
       # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+
+      - name: Setup Apache
+        run: sudo bash .github/workflows/sanity/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
+
           
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, gd, xml, dom, json, fileinfo, curl, zip, iconv, simplexml
+
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '5.7'
+          mysql database: 'staging_londonparkour_com'
+          mysql root password: ${{secrets.MYSQL_PASSWORD}}
+          mysql user: 'ldnpktesting'
+          mysql password: ${{secrets.MYSQL_PASSWORD}}
+
 
       # Clone wordpress fresh install
       - name: Install Wordpress
@@ -60,41 +60,32 @@ jobs:
           rm latest.tar.gz
 
 
-      # Install Database
+      # Install Database once decrypted with GPG key.
       - name: Install Database
         run: |
-          git stash
           git-crypt unlock ${{ secrets.GPG_SIGNING_KEY }}
-          git stash pop
-          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
-          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
-          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
+          mysql -uldnpktesting -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
 
 
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x  
+      # - name: Use Node.js 14.x
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 14.x  
 
-      # https://github.com/sindresorhus/capture-website-cli
-      - name: Install capture-website-cli
-        run: |
-          npm install --global capture-website-cli 1> /dev/null
+      # # https://github.com/sindresorhus/capture-website-cli
+      # - name: Install capture-website-cli
+      #   run: |
+      #     npm install --global capture-website-cli 1> /dev/null
         
 
-      - name: Screenshot Website
-        run: |
-          capture-website ${{ env.url }} --output ${{ env.destination }} --full-page --type=jpeg --quality=0.5
-
-
-      - name: what?
-        run: |
-          ls -la
+      # - name: Screenshot Website
+      #   run: |
+      #     capture-website ${{ env.url }} --output ${{ env.destination }} --full-page --type=jpeg --quality=0.5
       
 
-      - name: Upload screenshot
-        uses: actions/upload-artifact@v2
-        with:
-          name: screenshot
-          path: ${{ env.destination }}
+      # - name: Upload screenshot
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: screenshot
+      #     path: ${{ env.destination }}
 
