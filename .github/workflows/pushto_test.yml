@@ -33,7 +33,7 @@ jobs:
           submodules: recursive
 
       - name: Setup Apache
-        run: sudo bash .github/workflows/sanity/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
+        run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
 
           
       - name: Setup PHP
