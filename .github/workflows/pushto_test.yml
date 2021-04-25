@@ -15,7 +15,7 @@ jobs:
   # Test Job
   # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     name: Testing Website Update
     strategy:
       matrix:
