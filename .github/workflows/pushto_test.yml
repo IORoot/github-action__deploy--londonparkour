@@ -2,6 +2,11 @@
 # mysql  Ver 8.0.23-0ubuntu0.20.04.1 for Linux on x86_64 ((Ubuntu))
 # PHP 8.0.3 (cli) (built: Mar  5 2021 07:54:13) ( NTS )
 
+# Interesting links:
+# - https://github.com/PrestaShop/PrestaShop/tree/develop/.github/workflows
+# - https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
+# - https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
+
 name: Testing
 
 on:
@@ -97,13 +102,13 @@ jobs:
 
       - name: Screenshot Website
         run: |
-          mkdir ${{ env.shots }}
-          capture-website ${{ env.url }} --output ${{ env.shots }} --full-page --type=jpeg --quality=0.5
+          mkdir ${{ env.shots_dir }}
+          capture-website ${{ env.url }} --output ${{ env.shots_dir }}/screenshot.jpg --full-page --type=jpeg --quality=0.5
       
 
       - name: Upload screenshot
         uses: actions/upload-artifact@v2
         with:
           name: screenshot
-          path: ${{ env.shots }}
+          path: ${{ env.shots_dir }}
 
