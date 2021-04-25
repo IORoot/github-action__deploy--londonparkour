@@ -60,10 +60,17 @@ jobs:
           rm latest.tar.gz
 
 
-      # Install Database once decrypted with GPG key.
+      # Unlock with git-crypt.
+      - name: Unlock secrets
+        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+
+
+
+      # Install Database once decrypted with git-crypt and GPG key.
       - name: Install Database
         run: |
-          git-crypt unlock ${{ secrets.GPG_SIGNING_KEY }}
           mysql -uldnpktesting -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
 
 
