@@ -40,6 +40,18 @@ jobs:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
 
 
+      # Install Database once decrypted with git-crypt and GPG key.
+      - name: Install Database
+        run: |
+          sudo service mysql status
+          sudo service mysql restart
+          cat /var/run/mysqld/mysqld.sock
+          head -n 10 ./wp-content/database/dev_londonparkour_com.sql
+          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
+          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -e "CREATE DATABASE staging_londonparkour_com"
+          mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
+
+
       - name: Setup Apache
         run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
 
@@ -50,15 +62,6 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, intl, gd, xml, dom, json, fileinfo, curl, zip, iconv, simplexml
 
-      - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: '5.7'
-          mysql database: 'staging_londonparkour_com'
-          mysql root password: ${{secrets.MYSQL_PASSWORD}}
-          mysql user: 'ldnpktesting'
-          mysql password: ${{secrets.MYSQL_PASSWORD}}
-
 
       # Clone wordpress fresh install
       - name: Install Wordpress
@@ -68,10 +71,6 @@ jobs:
           rm latest.tar.gz
 
 
-      # Install Database once decrypted with git-crypt and GPG key.
-      - name: Install Database
-        run: |
-          mysql -uldnpktesting -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
 
 
       # - name: Use Node.js 14.x
