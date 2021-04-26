@@ -36,6 +36,14 @@ jobs:
           curl -L https://github.com/raviqqe/muffet/releases/download/v2.4.1/muffet_2.4.1_Linux_x86_64.tar.gz | tar zx
           sudo chmod +x muffet
 
+      # DEBUG with NGROK. 
+      - name: Start SSH session
+        uses: luchihoratiu/debug-via-ssh@main
+        with:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+          NGROK_REGION: eu
+
       - name: run muffet
         run: | 
           ./muffet ${{ env.url }} --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification > ${{ env.results }}
@@ -48,10 +56,3 @@ jobs:
           path: /tmp/results.txt
 
 
-      # # DEBUG with NGROK. 
-      # - name: Start SSH session
-      #   uses: luchihoratiu/debug-via-ssh@main
-      #   with:
-      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-      #     NGROK_REGION: eu
