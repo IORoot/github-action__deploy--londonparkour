@@ -97,6 +97,15 @@ jobs:
           find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
 
 
+      # # DEBUG with NGROK.
+      - name: Start SSH session
+        uses: luchihoratiu/debug-via-ssh@main
+        with:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+          NGROK_REGION: eu
+
+
       # Installing Node for tools
       - name: Use Node.js 14.x
         uses: actions/setup-node@v2
@@ -134,15 +143,7 @@ jobs:
         run: |
           mkdir ${{ env.dest }}
           capture-website ${{ env.url }} --output ${{ env.file }} --full-page --type=jpeg --quality=0.5
-      
 
-      # # DEBUG with NGROK.
-      - name: Start SSH session
-        uses: luchihoratiu/debug-via-ssh@main
-        with:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-          NGROK_REGION: eu
 
 
       # Upload as github artifact
@@ -151,5 +152,3 @@ jobs:
         with:
           name: screenshot
           path: ${{ env.file }}
-
-
