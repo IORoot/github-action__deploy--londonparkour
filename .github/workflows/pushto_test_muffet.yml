@@ -31,33 +31,23 @@ jobs:
     steps:
 
 
-      # Installing Node for tools
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x  
-
-
       - name: download blc
         run: |
-          npm install broken-link-checker -g
+          sudo npm install -g npm@latest
+          sudo npm install -g broken-link-checker
 
-      # DEBUG with NGROK. 
-      - name: Start SSH session
-        uses: luchihoratiu/debug-via-ssh@main
-        with:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-          NGROK_REGION: eu
+      # # DEBUG with NGROK. 
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
 
 
       - name: run blc
         run: |
-          blc --input https://staging.londonparkour.com -ro > /tmp/results.txt
-
-
-  
-
+          sudo blc --input https://staging.londonparkour.com -ro > /tmp/results.txt
 
 
 
