@@ -131,13 +131,6 @@ jobs:
           sudo chown -Rf www-data:www-data ./
 
 
-      # Installing Node for tools
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x  
-
-
       # https://github.com/sindresorhus/capture-website-cli
       - name: Install capture-website-cli
         run: |
@@ -246,18 +239,18 @@ jobs:
       #     NGROK_REGION: eu
 
 
-      # Installing Node for tools
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x  
+      # # Installing Node for tools
+      # - name: Use Node.js 14.x
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 14.x  
 
 
-      # Install NPM Packages
-      - name: NPM Install Theme
-        run: |
-          cd ./wp-content/themes/${{ env.theme }}
-          npm install
+      # # Install NPM Packages
+      # - name: NPM Install Theme
+      #   run: |
+      #     cd ./wp-content/themes/${{ env.theme }}
+      #     npm install
 
 
       # CHOWN for apache
@@ -266,20 +259,7 @@ jobs:
           sudo chown -Rf www-data:www-data ./
 
 
-      # Installing Node for tools
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
+      - name: Run Lighthouse on urls
+        uses: treosh/lighthouse-ci-action@v7
         with:
-          node-version: 14.x  
-
-
-      - name: Audit live URL
-        uses: jakejarvis/lighthouse-action@master
-        with:
-          url: 'http://localhost/'
-
-      - name: Upload results as an artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: report
-          path: './report'
+          urls: 'http://localhost'
