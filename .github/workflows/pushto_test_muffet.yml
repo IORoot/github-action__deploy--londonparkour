@@ -32,12 +32,12 @@ jobs:
 
 
       - name: download muffet
-        cmd: |
+        run: |
           curl -L https://github.com/raviqqe/muffet/releases/download/v2.4.1/muffet_2.4.1_Linux_x86_64.tar.gz | tar zx
           sudo chmod +x muffet
 
       - name: run muffet
-        cmd: | 
+        run: | 
           muffet ${{ env.url }} --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification > ${{ env.results }}
 
 
