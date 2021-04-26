@@ -34,4 +34,4 @@ jobs:
         uses: ruzickap/action-my-broken-link-checker@v1.0.3
         with:
           url: https://staging.londonparkour.com
-          cmd_params: "--one-page-only --color=always --skip-tls-verification --limit-redirections=5 --timeout=20"  # Check just one page
+          cmd_params: "--one-page-only --color=always"  # Check just one page
