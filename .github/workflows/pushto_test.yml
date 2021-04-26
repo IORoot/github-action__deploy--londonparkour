@@ -263,3 +263,4 @@ jobs:
         uses: treosh/lighthouse-ci-action@v7
         with:
           urls: 'http://localhost'
+          uploadArtifacts: true
