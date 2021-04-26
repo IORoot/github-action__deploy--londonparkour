@@ -27,12 +27,13 @@ jobs:
 
     steps:
 
-      - name: Check
+      - name: Muffet check
         env:
-          INPUT_URL: https://staging.londonparkour.com
-          INPUT_CMD_PARAMS: --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification
-        run: wget -qO- https://raw.githubusercontent.com/ruzickap/action-my-broken-link-checker/v2.2.0/entrypoint.sh | bash > ./results.txt
-
+          INPUT_URL: 'https://staging.londonparkour.com'
+          INPUT_CMD_PARAMS: '--buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification'
+        run: |
+          wget https://raw.githubusercontent.com/ruzickap/action-my-broken-link-checker/v2.2.0/entrypoint.sh
+          ./entrypoint.sh > ./results.txt
 
       - name: Muffet Results
         uses: actions/upload-artifact@v2
