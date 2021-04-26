@@ -60,11 +60,15 @@ jobs:
       # https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
       - name: Install Database
         run: |
-          mysql -uroot -proot -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
-          mysql -uroot -proot -e "CREATE DATABASE staging_londonparkour_com"
-          mysql -uroot -proot staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
+          mysql -uroot -proot -e "DROP DATABASE IF EXISTS dev_londonparkour_com"
+          mysql -uroot -proot -e "CREATE DATABASE dev_londonparkour_com"
+          mysql -uroot -proot dev_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
+          mysql -uroot -proot -e "CREATE USER 'ldnpk'@'localhost' IDENTIFIED BY '123abc';"
+          mysql -uroot -proot -e "GRANT ALL on dev_londonparkour_com.* to 'ldnpk'@'localhost';"
+          mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
 
+          
       # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
       - name: Setup Apache
         run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
