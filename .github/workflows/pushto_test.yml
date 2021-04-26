@@ -273,21 +273,6 @@ jobs:
           node-version: 14.x  
 
 
-      - name: Audit live URL
-        uses: jakejarvis/lighthouse-action@master
-        with:
-          url: 'http://localhost/'
-          
-
-      - name: Upload results as an artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: report
-          path: './report'
-
-
-
-          
       - name: Run Lighthouse
           uses: foo-software/lighthouse-check-action@master
           with:
