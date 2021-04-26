@@ -276,7 +276,7 @@ jobs:
       - name: Audit live URL
         uses: jakejarvis/lighthouse-action@master
         with:
-          url: 'http://locahost/'
+          url: 'http://localhost/'
 
       - name: Upload results as an artifact
         uses: actions/upload-artifact@master
