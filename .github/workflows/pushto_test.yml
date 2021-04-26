@@ -277,6 +277,7 @@ jobs:
         uses: jakejarvis/lighthouse-action@master
         with:
           url: 'http://localhost/'
+          
 
       - name: Upload results as an artifact
         uses: actions/upload-artifact@master
