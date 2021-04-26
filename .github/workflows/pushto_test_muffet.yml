@@ -47,7 +47,7 @@ jobs:
 
       - name: run blc
         run: |
-          sudo blc --input https://staging.londonparkour.com -ro > /tmp/results.txt
+          sudo blc --input https://staging.londonparkour.com -ro &>> /tmp/results.txt 
 
 
 
