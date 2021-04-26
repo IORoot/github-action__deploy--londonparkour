@@ -33,7 +33,7 @@ jobs:
           INPUT_CMD_PARAMS: '--buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification'
         run: |
           wget https://raw.githubusercontent.com/ruzickap/action-my-broken-link-checker/v2.2.0/entrypoint.sh
-          ./entrypoint.sh > ./results.txt
+          sudo ./entrypoint.sh > ./results.txt
 
       - name: Muffet Results
         uses: actions/upload-artifact@v2
