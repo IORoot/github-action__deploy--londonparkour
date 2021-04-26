@@ -41,9 +41,18 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: shogo82148/actions-setup-mysql@v1
+      # - uses: shogo82148/actions-setup-mysql@v1
+      #   with:
+      #     mysql-version: '8.0'
+
+
+      # DEBUG with NGROK.
+      - name: Start SSH session
+        uses: luchihoratiu/debug-via-ssh@main
         with:
-          mysql-version: '8.0'
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+          NGROK_REGION: eu
 
 
       # Unlock with git-crypt.
