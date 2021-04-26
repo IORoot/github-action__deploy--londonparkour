@@ -166,7 +166,7 @@ jobs:
             http://localhost/classes
             http://localhost/error
             http://localhost/bookings
-            http://localhost/wikis
+            http://localhost/wiki
             http://localhost/military
             http://localhost/pt
             http://localhost/group
@@ -174,7 +174,6 @@ jobs:
             http://localhost/contact
             http://localhost/stripe-checkout-result
             http://localhost/event
-            http://localhost/wiki
             http://localhost/wiki/beginner-class
             http://localhost/wiki/injury-professionals
             http://localhost/wiki/class-locations
@@ -194,11 +193,6 @@ jobs:
             http://localhost/wiki/contacting-us
             http://localhost/wiki/code-of-conduct
             http://localhost/event
-            http://localhost/event/discovery-class-06-05-2021
-            http://localhost/event/indoor-class-05-05-2021
-            http://localhost/event/outdoor-class-west-02-05-2021
-            http://localhost/event/youth-class-02-05-2021
-            http://localhost/event/outdoor-class-east-01-05-2021
             http://localhost/amp/homepage
             http://localhost/amp/classes
             http://localhost/amp/pt
