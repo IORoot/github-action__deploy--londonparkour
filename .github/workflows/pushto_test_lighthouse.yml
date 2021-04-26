@@ -196,5 +196,4 @@ jobs:
             http://localhost/amp/homepage
             http://localhost/amp/classes
             http://localhost/amp/pt
-            http://localhost/amp/military
           uploadArtifacts: true
