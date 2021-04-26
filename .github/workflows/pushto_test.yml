@@ -273,10 +273,28 @@ jobs:
           node-version: 14.x  
 
 
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v7
+    - name: Audit live URL
+      uses: jakejarvis/lighthouse-action@master
+      with:
+        url: 'http://localhost/'
+
+    - name: Upload results as an artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: report
+        path: './report'
+
+
+
+        
+    - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
         with:
-          urls: |
-            https://localhost/
-            https://localhost/classes
-          uploadArtifacts: true # save results as an action artifacts
+          outputDirectory: /tmp/artifacts
+          urls: 'http://localhost/'
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse reports
+          path: /tmp/artifacts
