@@ -38,7 +38,7 @@ jobs:
 
       - name: run muffet
         run: | 
-          muffet ${{ env.url }} --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification > ${{ env.results }}
+          ./muffet ${{ env.url }} --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification > ${{ env.results }}
 
 
       - name: Muffet Results
