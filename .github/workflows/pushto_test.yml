@@ -23,7 +23,13 @@ env:
 
 jobs:
 
-  # Test Job
+#  ┌───────────────────────────────────────────┐ 
+#  │                                           │░
+#  │              JOB: BUILD SITE              │░
+#  │                                           │░
+#  └───────────────────────────────────────────┘░
+#   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
   build:
 
     runs-on: ubuntu-18.04
@@ -114,9 +120,10 @@ jobs:
 
 
       # Install NPM Packages
-      - name: NPM Install
+      - name: NPM Install Theme
         run: |
-          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
+          cd ./wp-content/themes/${{ env.dest }}
+          npm install \;
 
 
       - name: Ownership
@@ -124,7 +131,15 @@ jobs:
           sudo chown -Rf www-data:www-data ./
 
 
-  #Once Built, do a screencapture using chrome.
+
+
+  #  ┌───────────────────────────────────────────┐ 
+  #  │                                           │░
+  #  │            JOB: SCREENCAPTURE             │░
+  #  │                                           │░
+  #  └───────────────────────────────────────────┘░
+  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
   screencapture:
 
     needs: build
@@ -132,6 +147,13 @@ jobs:
     name: Run Screencapture
 
     steps:
+
+      # Installing Node for tools
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x  
+
 
       # https://github.com/sindresorhus/capture-website-cli
       - name: Install capture-website-cli
@@ -144,7 +166,6 @@ jobs:
         run: |
           mkdir ${{ env.dest }}
           capture-website ${{ env.url }} --output ${{ env.file }} --full-page --type=jpeg --quality=0.5
-
 
 
       # Upload as github artifact
