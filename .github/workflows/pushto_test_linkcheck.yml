@@ -7,13 +7,13 @@
 # - https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
 # - https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
 
-name: CI Test - Screencapture
+name: CI Test - Linkcheck
 
 on:
   push:
     branches: 
       - test
-      - test/screencapture
+      - test/linkcheck
   workflow_dispatch:
 
 
@@ -28,17 +28,17 @@ jobs:
 
   #  ┌───────────────────────────────────────────┐ 
   #  │                                           │░
-  #  │            JOB: SCREENCAPTURE             │░
+  #  │              JOB: LIGHTHOUSE              │░
   #  │                                           │░
   #  └───────────────────────────────────────────┘░
   #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
-  screencapture:
+  lighthouse:
 
 
     runs-on: ubuntu-18.04
-    name: Screencapture
+    name: Lighthouse tests
 
     steps:
 
@@ -103,6 +103,15 @@ jobs:
           find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
 
 
+      - name: Install WP-Cli
+        run: |
+          sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
+          sudo chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+          wp --info
+          wp plugin activate wp-rocket
+
+
       # # DEBUG with NGROK.
       # - name: Start SSH session
       #   uses: luchihoratiu/debug-via-ssh@main
@@ -126,28 +135,39 @@ jobs:
           npm install
 
 
+      # Install SHARP (sharp.pixelplumbing.com)
+      - name: Sharp.js WEBP Image Conversion
+        run: |
+          npm install -g sharp-cli
+          cd ./wp-content/uploads
+          sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
+          sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
+
+
+      # Install PostCSS & PostCSS-CLI
+      - name: PostCSS for tailwind
+        run: |
+          npm install -g postcss postcss-cli
+          cd ./wp-content/themes/${{env.theme}}/src/assets/
+          NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
+
+
       # CHOWN for apache
       - name: Ownership
         run: |
           sudo chown -Rf www-data:www-data ./
 
 
-      # https://github.com/sindresorhus/capture-website-cli
-      - name: Install capture-website-cli
-        run: |
-          npm install --global capture-website-cli 1> /dev/null
-
-
-      # Take a screenshot
-      - name: Screenshot Website
-        run: |
-          mkdir ${{ env.dest }}
-          capture-website ${{ env.url }} --output ${{ env.file }} --full-page --type=jpeg --quality=0.5
-
-
-      # Upload as github artifact
-      - name: Upload screenshot
-        uses: actions/upload-artifact@v2
+      - name: Check for broken links
+        id: link-report
+        uses: celinekurpershoek/link-checker@v1.0.1
         with:
-          name: screenshot
-          path: ${{ env.file }}
+          # Required:
+          url: 'http://localhost'
+          # optional:
+          honorRobotExclusions: false
+          ignorePatterns: 'github,google,youtube,instagram'
+          recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
+
+      - name: Get the result
+        run: echo "${{steps.link-report.outputs.result}}"

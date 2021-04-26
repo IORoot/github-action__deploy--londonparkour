@@ -7,11 +7,13 @@
 # - https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
 # - https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
 
-name: Testing Lighthouse
+name: CI Test - Lighthouse
 
 on:
   push:
-    branches: [ test ]
+    branches: 
+      - test
+      - test/lighthouse
   workflow_dispatch:
 
 
@@ -202,4 +204,3 @@ jobs:
             http://localhost/amp/pt
             http://localhost/amp/military
           uploadArtifacts: true
-          runs: 3
