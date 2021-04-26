@@ -5,7 +5,7 @@ on:
   push:
     branches: 
       - test
-      - test_muffet
+      - test_links
   workflow_dispatch:
 
 
@@ -32,14 +32,6 @@ jobs:
         run: |
           sudo npm install -g npm@latest
           sudo npm install -g broken-link-checker
-
-      # DEBUG with NGROK. 
-      # - name: Start SSH session
-      #   uses: luchihoratiu/debug-via-ssh@main
-      #   with:
-      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-      #     NGROK_REGION: eu
 
 
       - name: run blc
