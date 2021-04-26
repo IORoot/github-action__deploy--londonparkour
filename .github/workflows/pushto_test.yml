@@ -41,12 +41,8 @@ jobs:
         with:
           submodules: recursive
 
-      # - uses: shogo82148/actions-setup-mysql@v1
-      #   with:
-      #     mysql-version: '8.0'
 
-
-      # DEBUG with NGROK.
+      # DEBUGGING with NGROK.
       - name: Start SSH session
         uses: luchihoratiu/debug-via-ssh@main
         with:
@@ -62,13 +58,20 @@ jobs:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
 
 
+      # Start MySQL
+      - name: Start mySQL
+        run: |
+          sudo systemctl enable mysql.service
+          sudo systemctl start mysql.service
+
+
       # Install Database once decrypted with git-crypt and GPG key.
       # https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
       - name: Install Database
         run: |
-          mysql -uroot -h127.0.0.1 -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
-          mysql -uroot -h127.0.0.1 -e "CREATE DATABASE staging_londonparkour_com"
-          mysql -uroot -h127.0.0.1 staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
+          mysql -uroot -proot -e "DROP DATABASE IF EXISTS staging_londonparkour_com"
+          mysql -uroot -proot -e "CREATE DATABASE staging_londonparkour_com"
+          mysql -uroot -proot staging_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
 
 
       # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
@@ -106,26 +109,28 @@ jobs:
 
       - name: Ownership
         run: |
-          ls -la
           sudo chown -Rf www-data:www-data ./
 
-
+      # Take a screenshot
       - name: Screenshot Website
         run: |
           mkdir ${{ env.dest }}
           capture-website ${{ env.url }} --output ${{ env.file }} --full-page --type=jpeg --quality=0.5
       
 
+      # Upload as github artifact
       - name: Upload screenshot
         uses: actions/upload-artifact@v2
         with:
           name: screenshot
           path: ${{ env.file }}
 
+
+
       # DEBUG with NGROK.
-      - name: Start SSH session
-        uses: luchihoratiu/debug-via-ssh@main
-        with:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-          NGROK_REGION: eu
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
