@@ -8,9 +8,6 @@ on:
       - test_muffet
   workflow_dispatch:
 
-env:
-  URL: https://staging.londonparkour.com
-  FILENAME: report.yaml
 
 jobs:
 
@@ -30,8 +27,24 @@ jobs:
 
     steps:
 
-    - name: Check
-      env:
-        INPUT_URL: https://staging.londonparkour.com
-        INPUT_CMD_PARAMS: --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification
-      run: wget -qO- https://raw.githubusercontent.com/ruzickap/action-my-broken-link-checker/v1/entrypoint.sh | bash
+      - name: Check
+        env:
+          INPUT_URL: https://staging.londonparkour.com
+          INPUT_CMD_PARAMS: --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification
+        run: wget -qO- https://raw.githubusercontent.com/ruzickap/action-my-broken-link-checker/v1/entrypoint.sh | bash > ./results.txt
+
+
+      - name: Muffet Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Results File
+          path: ./results.txt
+          
+
+      # # DEBUG with NGROK.
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
