@@ -37,7 +37,7 @@ jobs:
 
 
     runs-on: ubuntu-18.04
-    name: Build Test Environment - Wordpress
+    name: Build Test Environment - simple screencapture
 
     steps:
 
@@ -168,11 +168,11 @@ jobs:
   #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
-  screencapture:
+  lighthouse:
 
 
     runs-on: ubuntu-18.04
-    name: Build Test Environment - Wordpress
+    name: Lighthouse tests
 
     steps:
 
