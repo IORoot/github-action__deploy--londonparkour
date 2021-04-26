@@ -8,6 +8,9 @@ on:
       - test_muffet
   workflow_dispatch:
 
+env:
+  url: 'https://staging.londonparkour.com'
+  results: '/tmp/results.txt'
 
 jobs:
 
@@ -28,26 +31,20 @@ jobs:
     steps:
 
 
-      - name: Check for broken links
-        id: link-report
-        uses: celinekurpershoek/link-checker@v1.0.1
-        with:
-          # Required:
-          url: 'https://staging.londonparkour.com'
-          # optional:
-          honorRobotExclusions: false
-          ignorePatterns: 'github,google,instagram,youtube'
-          recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
+      - name: download muffet
+        cmd: |
+          curl -L https://github.com/raviqqe/muffet/releases/download/v2.4.1/muffet_2.4.1_Linux_x86_64.tar.gz | tar zx
+          sudo chmod +x muffet
 
-      - name: Get the result
-        run: |
-          echo "${{steps.link-report.outputs.result}}" > /tmp/results.txt
+      - name: run muffet
+        cmd: | 
+          muffet ${{ env.url }} --buffer-size=8192 --max-connections=10 --color=always --skip-tls-verification > ${{ env.results }}
 
 
       - name: Muffet Results
         uses: actions/upload-artifact@v2
         with:
-          name: Results File
+          name: Results File  
           path: /tmp/results.txt
 
 
