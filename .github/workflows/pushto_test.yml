@@ -294,8 +294,8 @@ jobs:
             outputDirectory: /tmp/artifacts
             urls: 'http://localhost/'
             
-        - name: Upload artifacts
-          uses: actions/upload-artifact@master
-          with:
-            name: Lighthouse reports
-            path: /tmp/artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse reports
+          path: /tmp/artifacts
