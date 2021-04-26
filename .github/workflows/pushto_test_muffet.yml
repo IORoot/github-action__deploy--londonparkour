@@ -51,7 +51,7 @@ jobs:
           path: /tmp/results.txt
 
 
-      # # DEBUG with NGROK.
+      # # DEBUG with NGROK. 
       # - name: Start SSH session
       #   uses: luchihoratiu/debug-via-ssh@main
       #   with:
