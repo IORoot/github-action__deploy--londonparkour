@@ -24,9 +24,10 @@ env:
 jobs:
 
   # Test Job
-  test:
+  build:
+
     runs-on: ubuntu-18.04
-    name: Testing Website Update
+    name: Build Test Environment - Wordpress
     strategy:
       matrix:
         php: [ '7.4' ]
@@ -109,24 +110,33 @@ jobs:
           find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
 
 
-      # DEBUG with NGROK.
-      - name: Start SSH session
-        uses: luchihoratiu/debug-via-ssh@main
-        with:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-          NGROK_REGION: eu
-
-          
-      # https://github.com/sindresorhus/capture-website-cli
-      - name: Install capture-website-cli
-        run: |
-          npm install --global capture-website-cli 1> /dev/null
+      # # DEBUG with NGROK.
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
 
 
       - name: Ownership
         run: |
           sudo chown -Rf www-data:www-data ./
+
+
+  # Once Built, do a screencapture using chrome.
+  screencapture:
+
+    needs: build
+    name: Run Screencapture
+
+    steps:
+
+      # https://github.com/sindresorhus/capture-website-cli
+      - name: Install capture-website-cli
+        run: |
+          npm install --global capture-website-cli 1> /dev/null
+
 
       # Take a screenshot
       - name: Screenshot Website
@@ -141,3 +151,5 @@ jobs:
         with:
           name: screenshot
           path: ${{ env.file }}
+
+
