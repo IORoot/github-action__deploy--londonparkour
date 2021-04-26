@@ -1,8 +1,8 @@
 <?php
 
 	/** Site Definition */
-	define('WP_HOME',	'http://dev.londonparkour.com');
-	define('WP_SITEURL','http://dev.londonparkour.com');
+	define('WP_HOME',	'http://localhost');
+	define('WP_SITEURL','http://localhost');
 
 	/** Database */
 	define('DB_NAME', 		'dev_londonparkour_com');
