@@ -68,7 +68,7 @@ jobs:
           mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
 
-          
+
       # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
       - name: Setup Apache
         run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
@@ -87,6 +87,15 @@ jobs:
           curl -O https://wordpress.org/latest.tar.gz
           tar --strip-components=1 -xzvf latest.tar.gz
           rm latest.tar.gz
+
+
+      # DEBUG with NGROK.
+      - name: Start SSH session
+        uses: luchihoratiu/debug-via-ssh@main
+        with:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+          NGROK_REGION: eu
 
 
       # Installing Node for tools
@@ -119,13 +128,3 @@ jobs:
         with:
           name: screenshot
           path: ${{ env.file }}
-
-
-
-      # DEBUG with NGROK.
-      - name: Start SSH session
-        uses: luchihoratiu/debug-via-ssh@main
-        with:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-          NGROK_REGION: eu
