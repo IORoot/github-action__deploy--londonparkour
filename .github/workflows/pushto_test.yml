@@ -123,7 +123,7 @@ jobs:
       - name: NPM Install Theme
         run: |
           cd ./wp-content/themes/${{ env.theme }}
-          npm install \;
+          npm install
 
 
       - name: Ownership
