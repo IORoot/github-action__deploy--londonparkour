@@ -8,9 +8,6 @@ on:
       - test_muffet
   workflow_dispatch:
 
-env:
-  url: 'https://staging.londonparkour.com'
-  results: '/tmp/results.txt'
 
 jobs:
 
@@ -47,7 +44,8 @@ jobs:
 
       - name: run blc
         run: |
-          sudo blc --input https://staging.londonparkour.com -ro &>> /tmp/results.txt 
+          set -x
+          (blc --input https://staging.londonparkour.com -ro &>> /tmp/results.txt) || true
 
 
 
