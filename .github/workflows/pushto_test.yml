@@ -262,5 +262,17 @@ jobs:
       - name: Run Lighthouse on urls
         uses: treosh/lighthouse-ci-action@v7
         with:
-          urls: 'http://localhost'
+          urls: |
+            http://localhost
+            http://localhost/classes
           uploadArtifacts: true
+
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: './.lighthouseci'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
