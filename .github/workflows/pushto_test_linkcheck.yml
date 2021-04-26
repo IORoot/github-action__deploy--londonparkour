@@ -5,7 +5,7 @@ on:
   push:
     branches: 
       - test
-      - test/muffet
+      - test_muffet
   workflow_dispatch:
 
 env:
@@ -31,7 +31,7 @@ jobs:
     steps:
 
       - name: Check
-        uses: ruzickap/action-my-broken-link-checker@v1
+        uses: ruzickap/action-my-broken-link-checker@v1.0.3
         with:
           url: https://staging.londonparkour.com
           cmd_params: "--one-page-only --color=always --skip-tls-verification --limit-redirections=5 --timeout=20"  # Check just one page

@@ -13,7 +13,7 @@ on:
   push:
     branches: 
       - test
-      - test/lighthouse
+      - test_lighthouse
   workflow_dispatch:
 
 
