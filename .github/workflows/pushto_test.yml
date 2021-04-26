@@ -20,25 +20,24 @@ env:
   url:    'http://127.0.0.1'
   dest:   './screenshots'
   file:   './screenshots/screenshot.jpg'
+  php:    '7.4'
 
 jobs:
 
-#  ┌───────────────────────────────────────────┐ 
-#  │                                           │░
-#  │              JOB: BUILD SITE              │░
-#  │                                           │░
-#  └───────────────────────────────────────────┘░
-#   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-  build:
+  #  ┌───────────────────────────────────────────┐ 
+  #  │                                           │░
+  #  │            JOB: SCREENCAPTURE             │░
+  #  │                                           │░
+  #  └───────────────────────────────────────────┘░
+  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+
+  screencapture:
+
 
     runs-on: ubuntu-18.04
     name: Build Test Environment - Wordpress
-    strategy:
-      matrix:
-        php: [ '7.4' ]
-      fail-fast: false
-
 
     steps:
 
@@ -78,7 +77,7 @@ jobs:
 
       # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
       - name: Setup Apache
-        run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ matrix.php }}
+        run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ env.php }}
 
 
       - name: Setup PHP
@@ -126,27 +125,11 @@ jobs:
           npm install
 
 
+      # CHOWN for apache
       - name: Ownership
         run: |
           sudo chown -Rf www-data:www-data ./
 
-
-
-
-  #  ┌───────────────────────────────────────────┐ 
-  #  │                                           │░
-  #  │            JOB: SCREENCAPTURE             │░
-  #  │                                           │░
-  #  └───────────────────────────────────────────┘░
-  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-  screencapture:
-
-    needs: build
-    runs-on: ubuntu-latest
-    name: Run Screencapture
-
-    steps:
 
       # Installing Node for tools
       - name: Use Node.js 14.x
@@ -174,3 +157,126 @@ jobs:
         with:
           name: screenshot
           path: ${{ env.file }}
+
+
+
+  #  ┌───────────────────────────────────────────┐ 
+  #  │                                           │░
+  #  │              JOB: LIGHTHOUSE              │░
+  #  │                                           │░
+  #  └───────────────────────────────────────────┘░
+  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+
+  screencapture:
+
+
+    runs-on: ubuntu-18.04
+    name: Build Test Environment - Wordpress
+
+    steps:
+
+      # Checkout repo with submodules
+      # https://github.com/marketplace/actions/checkout-submodules 
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+
+      # Unlock with git-crypt.
+      - name: Unlock secrets
+        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+
+
+      # Start MySQL
+      - name: Start mySQL
+        run: |
+          sudo systemctl enable mysql.service
+          sudo systemctl start mysql.service
+
+
+      # Install Database once decrypted with git-crypt and GPG key.
+      # https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
+      - name: Install Database
+        run: |
+          mysql -uroot -proot -e "DROP DATABASE IF EXISTS dev_londonparkour_com"
+          mysql -uroot -proot -e "CREATE DATABASE dev_londonparkour_com"
+          mysql -uroot -proot dev_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
+          mysql -uroot -proot -e "CREATE USER 'ldnpk'@'localhost' IDENTIFIED BY '123abc';"
+          mysql -uroot -proot -e "GRANT ALL on dev_londonparkour_com.* to 'ldnpk'@'localhost';"
+          mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+
+
+
+      # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
+      - name: Setup Apache
+        run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ env.php }}
+
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, gd, xml, dom, json, fileinfo, curl, zip, iconv, simplexml
+
+
+      # Clone wordpress fresh install
+      - name: Install Wordpress
+        run: |
+          curl -O https://wordpress.org/latest.tar.gz
+          tar --strip-components=1 -xzvf latest.tar.gz
+          rm latest.tar.gz
+
+
+      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
+      - name: Composer Install
+        run: |
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+
+
+      # # DEBUG with NGROK.
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
+
+
+      # Installing Node for tools
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x  
+
+
+      # Install NPM Packages
+      - name: NPM Install Theme
+        run: |
+          cd ./wp-content/themes/${{ env.theme }}
+          npm install
+
+
+      # CHOWN for apache
+      - name: Ownership
+        run: |
+          sudo chown -Rf www-data:www-data ./
+
+
+      # Installing Node for tools
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x  
+
+
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v7
+        with:
+          urls: |
+            https://localhost/
+            https://localhost/classes
+          uploadArtifacts: true # save results as an action artifacts
