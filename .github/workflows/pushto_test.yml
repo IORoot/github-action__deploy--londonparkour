@@ -124,7 +124,7 @@ jobs:
           sudo chown -Rf www-data:www-data ./
 
 
-  Once Built, do a screencapture using chrome.
+  #Once Built, do a screencapture using chrome.
   screencapture:
 
     needs: build
