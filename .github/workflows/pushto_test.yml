@@ -124,13 +124,14 @@ jobs:
           sudo chown -Rf www-data:www-data ./
 
 
-  # Once Built, do a screencapture using chrome.
-  # screencapture:
+  Once Built, do a screencapture using chrome.
+  screencapture:
 
-  #   needs: build
-  #   name: Run Screencapture
+    needs: build
+    runs-on: ubuntu-latest
+    name: Run Screencapture
 
-  #   steps:
+    steps:
 
       # https://github.com/sindresorhus/capture-website-cli
       - name: Install capture-website-cli
