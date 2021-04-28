@@ -40,12 +40,12 @@ jobs:
           ( pa11y-ci --json --config pa11y_config.json --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.json) || true
 
       # # DEBUG with NGROK.
-      - name: Start SSH session
-        uses: luchihoratiu/debug-via-ssh@main
-        with:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-          NGROK_REGION: eu
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
 
       - name: BLC Results
         uses: actions/upload-artifact@v2
