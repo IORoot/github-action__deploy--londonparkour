@@ -34,10 +34,10 @@ jobs:
           sudo npm install -g pa11y-ci
 
 
-      - name: run blc
+      - name: run pa11y
         run: |
           set -x
-          (pa11y-ci --json --config ./setup/pa11y_config.json --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.json) || true
+          (sudo pa11y-ci --json --config ./setup/pa11y_config.json --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.json) || true
 
 
 
