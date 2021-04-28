@@ -40,7 +40,7 @@ jobs:
 
       - name: download browserstack
         run: |
-          gem install screenshooter
+          sudo gem install screenshooter
 
 
       - name: run browserstack
