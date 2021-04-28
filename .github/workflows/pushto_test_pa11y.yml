@@ -45,6 +45,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Results File  
-          path: /tmp/pa11y-results.txt
+          path: /tmp/pa11y-results.json
 
 
