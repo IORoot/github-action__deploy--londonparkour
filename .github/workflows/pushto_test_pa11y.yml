@@ -36,7 +36,7 @@ jobs:
       - name: run pa11y
         run: |
           set -x
-          echo "{ "defaults": { "ignore": [ "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail", "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail" ] } }" > pa11y_config.json
+          echo '{ "defaults": { "ignore": [ "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail", "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail" ] } }' > pa11y_config.json
           ( pa11y-ci --json --config pa11y_config.json --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.json) || true
 
       # # DEBUG with NGROK.
