@@ -37,7 +37,7 @@ jobs:
       - name: run blc
         run: |
           set -x
-          (pa11y-ci --json --config .github/workflows/setup/pa11y_config.json --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.json) || true
+          (pa11y-ci --json --config ./setup/pa11y_config.json --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.json) || true
 
 
 
