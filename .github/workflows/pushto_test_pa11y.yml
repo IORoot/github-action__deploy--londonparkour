@@ -1,11 +1,11 @@
 
-name: Test - Broken Links [STAGING]
+name: Test - pa11y [STAGING]
 
 on:
   push:
     branches: 
       - test
-      - test_links
+      - test_pa11y
   workflow_dispatch:
 
 
@@ -13,7 +13,7 @@ jobs:
 
   #  ┌───────────────────────────────────────────┐ 
   #  │                                           │░
-  #  │                  JOB: BLC                 │░
+  #  │                JOB: PA11Y                 │░
   #  │                                           │░
   #  └───────────────────────────────────────────┘░
   #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -22,22 +22,22 @@ jobs:
   linkcheck:
 
 
-    runs-on: ubuntu-18.04
-    name: BLC tests
+    runs-on: ubuntu-latest
+    name: pa11y tests
 
     steps:
 
 
-      - name: download blc
+      - name: download pa11y-ci
         run: |
           sudo npm install -g npm@latest
-          sudo npm install -g broken-link-checker
+          sudo npm install -g pa11y-ci
 
 
       - name: run blc
         run: |
           set -x
-          (blc --input https://staging.londonparkour.com -ro &>> /tmp/results.txt) || true
+          (pa11y-ci --sitemap https://staging.londonparkour.com/sitemap_index.xml &>> /tmp/pa11y-results.txt) || true
 
 
 
@@ -45,6 +45,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Results File  
-          path: /tmp/results.txt
+          path: /tmp/pa11y-results.txt
 
 
