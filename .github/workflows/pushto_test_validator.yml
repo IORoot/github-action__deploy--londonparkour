@@ -1,0 +1,26 @@
+
+name: Test - W3C validator [STAGING]
+
+on:
+  push:
+    branches: 
+      - test
+      - test_validator
+  workflow_dispatch:
+
+env:
+  url: "https://staging.londonparkour.com"
+
+jobs:
+
+  validator:
+
+    runs-on: ubuntu-latest
+    name: Validator tests
+
+    steps:
+
+      - uses: marcuslindblom/w3cvalidator@main
+        with:
+          url: ${{ env.URL }}
+          level: error
