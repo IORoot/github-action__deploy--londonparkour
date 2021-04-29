@@ -128,6 +128,16 @@ jobs:
             cp ${{env.dest}}/../${{env.server}}-config.php ${{env.dest}}/wp-config.php
 
 
+      # Chown to www-data:www-data
+      - name: Chown 
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            chown -Rf www-data:www-data ${{env.dest}}
+
+
       # Activate plugins
       - name: Setup Plugins
         uses: JimCronqvist/action-ssh@master
@@ -139,19 +149,8 @@ jobs:
             sudo -u www-data wp plugin activate wp-rocket
             sudo -u www-data wp plugin delete hello akismet
             sudo -u www-data wp theme delete twentynineteen twentytwenty twentytwentyone
+
             
-
-
-      # Chown to www-data:www-data
-      - name: Chown 
-        uses: JimCronqvist/action-ssh@master
-        with:
-          hosts: ${{env.ssh}}
-          privateKey: ${{secrets.DEPLOY_KEY}}
-          command: |
-            chown -Rf www-data:www-data ${{env.dest}}
-
-
       # Cleanup - remove .git dir
       - name: Remove GIT
         uses: JimCronqvist/action-ssh@master
