@@ -116,6 +116,19 @@ jobs:
             rm latest.tar.gz
 
 
+      # Activate plugins
+      - name: Setup Plugins
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            sudo -u www-data wp plugin activate wp-rocket
+            sudo -u www-data wp plugin delete hello akismet
+            sudo -u www-data wp theme delete twentynineteen twentytwenty twentytwentyone
+
+
       # Copy secrets into plugins
       - name: Copy Secrets
         uses: JimCronqvist/action-ssh@master
@@ -130,7 +143,7 @@ jobs:
 
 
       # Chown to www-data:www-data
-      - name: Chown
+      - name: Chown 
         uses: JimCronqvist/action-ssh@master
         with:
           hosts: ${{env.ssh}}
