@@ -10,7 +10,7 @@ on:
 
 env:
   url: 'https://staging.londonparkour.com'
-  config: './setup/browsers.yaml'  
+  config: '.github/workflows/setup/browsers.yaml'  
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_TOKEN: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   
