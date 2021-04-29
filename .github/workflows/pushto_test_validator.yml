@@ -20,7 +20,14 @@ jobs:
 
     steps:
 
-      - uses: marcuslindblom/w3cvalidator@main
+      # Run CURL On W3C Validator
+      - name: Validate
+        run: |
+          curl "https://validator.w3.org/nu/?out=json&doc=${{ env.url }}" > /tmp/validator-results.json
+
+
+      - name: Validate Results
+        uses: actions/upload-artifact@v2
         with:
-          url: ${{ env.URL }}
-          level: error
+          name: Results File  
+          path: /tmp/validator-results.json
