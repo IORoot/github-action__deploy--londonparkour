@@ -23,7 +23,7 @@ jobs:
       # Run CURL On W3C Validator
       - name: Validate
         run: |
-          ./setup/w3c_validate.sh ${{ env.url }}
+          .github/workflows/setup/w3c_validate.sh ${{ env.url }}
 
 
       - name: Validate Results
