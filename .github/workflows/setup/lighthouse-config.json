@@ -1,9 +1,0 @@
-{
-    "ci": {
-        "upload": {
-            "target": "filesystem",
-            "outputDir": "/tmp/lighthouse/",
-            "reportFilenamePattern": "report-%%HOSTNAME%%_%%PATHNAME%%-%%DATETIME%%.%%EXTENSION%%"
-        }
-    }
-}

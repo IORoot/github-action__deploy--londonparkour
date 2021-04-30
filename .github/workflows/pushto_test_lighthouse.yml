@@ -171,7 +171,7 @@ jobs:
             http://localhost/classes
             http://localhost/error
             http://localhost/bookings
-            http://localhost/wiki
+            http://localhost/support
             http://localhost/military
             http://localhost/pt
             http://localhost/group
@@ -179,34 +179,26 @@ jobs:
             http://localhost/contact
             http://localhost/stripe-checkout-result
             http://localhost/event
-            http://localhost/wiki/beginner-class
-            http://localhost/wiki/injury-professionals
-            http://localhost/wiki/class-locations
-            http://localhost/wiki/coaches
-            http://localhost/wiki/youth-class
-            http://localhost/wiki/updates
-            http://localhost/wiki/terms-of-service
-            http://localhost/wiki/student-waiver
-            http://localhost/wiki/privacy-policy
-            http://localhost/wiki/pricing
-            http://localhost/wiki/photography-video
-            http://localhost/wiki/personal-training-pt
-            http://localhost/wiki/hiring-us
-            http://localhost/wiki/gift-cards
-            http://localhost/wiki/discounts
-            http://localhost/wiki/equality-policy
-            http://localhost/wiki/contacting-us
-            http://localhost/wiki/code-of-conduct
+            http://localhost/support/beginner-class
+            http://localhost/support/injury-professionals
+            http://localhost/support/class-locations
+            http://localhost/support/coaches
+            http://localhost/support/youth-class
+            http://localhost/support/updates
+            http://localhost/support/terms-of-service
+            http://localhost/support/student-waiver
+            http://localhost/support/privacy-policy
+            http://localhost/support/pricing
+            http://localhost/support/photography-video
+            http://localhost/support/personal-training-pt
+            http://localhost/support/hiring-us
+            http://localhost/support/gift-cards
+            http://localhost/support/discounts
+            http://localhost/support/equality-policy
+            http://localhost/support/contacting-us
+            http://localhost/support/code-of-conduct
             http://localhost/event
             http://localhost/amp/homepage
             http://localhost/amp/classes
             http://localhost/amp/pt
           uploadArtifacts: true
-          configPath: './.github/workflows/setup/lighthouse-config.json'
-
-          
-      - name: Lighthouse Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: Lighthouse Results  
-          path: /tmp/lighthouse/
