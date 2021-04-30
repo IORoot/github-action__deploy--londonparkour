@@ -157,6 +157,11 @@ jobs:
         run: |
           sudo chown -Rf www-data:www-data ./
 
+      # Lighthouse DIR
+      - name: lighthouse DIR
+        run: |
+          mkdir /tmp/lighthouse
+
 
       - name: Run Lighthouse on urls
         uses: treosh/lighthouse-ci-action@v7
@@ -197,3 +202,4 @@ jobs:
             http://localhost/amp/classes
             http://localhost/amp/pt
           uploadArtifacts: true
+          configPath: './setup/lighthouse-config.json'
