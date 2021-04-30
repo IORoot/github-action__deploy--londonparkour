@@ -21,5 +21,5 @@ do
     DOMAIN=$( echo $PAGE | awk -F// '{print $NF}')
     PARSE=$( echo $DOMAIN | sed 's/[\/|\.|-]/_/g')
     FILE=$( echo $PARSE | sed 's/_$//g')
-    curl -s "https://validator.w3.org/nu/?out=json&doc=$PAGE" > /tmp/${OUTDIR}/${FILE}.json
+    curl -s "https://validator.w3.org/nu/?out=json&doc=$PAGE" > ${OUTDIR}/${FILE}.json
 done
