@@ -1,12 +1,13 @@
 #!/bin/bash
 
 
-if [ "$#" -ne 1 ]; then
-    "Usage: $0 SITEMAPURL" >&2
+if [ "$#" -ne 2 ]; then
+    "Usage: $0 SITEMAPURL OUTDIR" >&2
     exit 1
 fi
 
 SITEMAP=$1
+OUTDIR=$2
 
 create_list()
 {
@@ -20,5 +21,5 @@ do
     DOMAIN=$( echo $PAGE | awk -F// '{print $NF}')
     PARSE=$( echo $DOMAIN | sed 's/[\/|\.|-]/_/g')
     FILE=$( echo $PARSE | sed 's/_$//g')
-    curl -s "https://validator.w3.org/nu/?out=json&doc=$PAGE" > /tmp/validator-${FILE}.json
+    curl -s "https://validator.w3.org/nu/?out=json&doc=$PAGE" > /tmp/${OUTDIR}/${FILE}.json
 done

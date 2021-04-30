@@ -10,6 +10,7 @@ on:
 
 env:
   url: "https://staging.londonparkour.com/sitemap_index.xml"
+  out: "/tmp/validator/"
 
 jobs:
 
@@ -28,11 +29,12 @@ jobs:
       # Run CURL On W3C Validator
       - name: Validate
         run: |
-          .github/workflows/setup/w3c_validate.sh ${{ env.url }}
+          mkdir ${{ env.out }}
+          .github/workflows/setup/w3c_validate.sh ${{ env.url }} ${{ env.out }}
 
 
-      - name: Validate Results
+      - name: Validator Results
         uses: actions/upload-artifact@v2
         with:
-          name: Results File  
-          path: /tmp/validator-results.json
+          name: Validator Results  
+          path: /tmp/validator/
