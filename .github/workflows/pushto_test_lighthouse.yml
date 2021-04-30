@@ -202,4 +202,4 @@ jobs:
             http://localhost/amp/classes
             http://localhost/amp/pt
           uploadArtifacts: true
-          configPath: './setup/lighthouse-config.json'
+          configPath: './.github/workflows/setup/lighthouse-config.json'
