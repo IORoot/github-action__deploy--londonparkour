@@ -20,6 +20,11 @@ jobs:
 
     steps:
 
+
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+
       # Run CURL On W3C Validator
       - name: Validate
         run: |
