@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  url: "https://staging.londonparkour.com"
+  url: "https://staging.londonparkour.com/sitemap_index.xml"
 
 jobs:
 
@@ -23,7 +23,7 @@ jobs:
       # Run CURL On W3C Validator
       - name: Validate
         run: |
-          curl "https://validator.w3.org/nu/?out=json&doc=${{ env.url }}" > /tmp/validator-results.json
+          ./setup/w3c_validate.sh ${{ env.url }}
 
 
       - name: Validate Results
