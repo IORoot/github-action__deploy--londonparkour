@@ -202,3 +202,11 @@ jobs:
             http://localhost/amp/classes
             http://localhost/amp/pt
           uploadArtifacts: true
+          configPath: './.github/workflows/setup/lighthouse-config.json'
+
+          
+      - name: Lighthouse Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Lighthouse Results  
+          path: /tmp/lighthouse/
