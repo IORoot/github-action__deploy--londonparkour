@@ -78,8 +78,8 @@ jobs:
       - name: Move into build folder
         run: |
           ls -la
-          sudo mkdir build
-          sudo mv *.html ./build
+          sudo mkdir /github/home/build
+          sudo mv *.html /github/home/build
           ls -la
 
       # DEBUG with NGROK.
