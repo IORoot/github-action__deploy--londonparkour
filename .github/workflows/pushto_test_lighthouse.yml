@@ -37,7 +37,10 @@ jobs:
       matrix:
         urls: [
           'https://staging.londonparkour.com',
-          'https://staging.londonparkour.com/classes'
+          'https://staging.londonparkour.com/classes',
+          'https://staging.londonparkour.com/pt',
+          'https://staging.londonparkour.com/military',
+          'https://staging.londonparkour.com/grouptraining',
         ]
 
     steps:
