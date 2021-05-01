@@ -77,11 +77,8 @@ jobs:
 
       - name: Move into build folder
         run: |
-          pwd
-          ls -la
-          sudo mkdir /home/runner/work/STAGING/STAGING/build
-          sudo mv *.html /home/runner/work/STAGING/STAGING/build
-          ls -la
+          sudo mkdir ./public
+          sudo mv *.html ./public
 
       # DEBUG with NGROK.
       # - name: Start SSH session
@@ -91,9 +88,11 @@ jobs:
       #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
       #     NGROK_REGION: eu
 
-      - name: Deploy Netlify
-        uses: danakim/gh-action-deploy-netlify@master
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          DEPLOY_PROD: true
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
