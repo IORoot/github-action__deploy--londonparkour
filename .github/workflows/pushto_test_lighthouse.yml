@@ -83,7 +83,9 @@ jobs:
           sudo mv *.html ./public
           sudo mv ./.github/workflows/setup/github_pages_index.sh ./public
           cd ./public
-          sudo ./github_pages_index.sh
+          ls -la
+          pwd
+          sudo /bin/bash ./github_pages_index.sh
 
       # DEBUG with NGROK.
       # - name: Start SSH session
