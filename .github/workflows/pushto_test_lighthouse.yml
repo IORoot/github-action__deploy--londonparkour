@@ -75,7 +75,7 @@ jobs:
 
     runs-on: ubuntu-latest
     name: Upload to github actions
-    needs: [lighthouse_001, lighthouse_002]
+    needs: [lighthouse_001]
 
     steps:
 
