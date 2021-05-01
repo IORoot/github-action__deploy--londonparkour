@@ -2,8 +2,14 @@
     "ci": {
         "collect": {
             "settings": {
-                "onlyCategories": ["performance"]
-            }
+                "output": ["html"],
+                "onlyCategories": [
+                    "performance",
+                    "accessibility",
+                    "best-practices",
+                    "seo"
+                ]
+            },
         }
     }
 }
