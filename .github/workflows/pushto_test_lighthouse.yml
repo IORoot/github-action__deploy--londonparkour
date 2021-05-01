@@ -36,11 +36,40 @@ jobs:
     strategy:
       matrix:
         urls: [
-          'https://staging.londonparkour.com',
-          'https://staging.londonparkour.com/classes',
-          'https://staging.londonparkour.com/pt',
-          'https://staging.londonparkour.com/military',
-          'https://staging.londonparkour.com/grouptraining',
+          'http://staging.londonparkour.com/',
+          'http://staging.londonparkour.com/classes/',
+          'http://staging.londonparkour.com/error/',
+          'http://staging.londonparkour.com/bookings/',
+          'http://staging.londonparkour.com/support/',
+          'http://staging.londonparkour.com/military/',
+          'http://staging.londonparkour.com/pt/',
+          'http://staging.londonparkour.com/grouptraining/',
+          'http://staging.londonparkour.com/giftcards/',
+          'http://staging.londonparkour.com/contact/',
+          'http://staging.londonparkour.com/stripe-checkout-result/',
+          'http://staging.londonparkour.com/event/',
+          'http://staging.londonparkour.com/support/beginner-class/',
+          'http://staging.londonparkour.com/support/injury-professionals/',
+          'http://staging.londonparkour.com/support/class-locations/',
+          'http://staging.londonparkour.com/support/coaches/',
+          'http://staging.londonparkour.com/support/youth-class/',
+          'http://staging.londonparkour.com/support/updates/',
+          'http://staging.londonparkour.com/support/terms-of-service/',
+          'http://staging.londonparkour.com/support/student-waiver/',
+          'http://staging.londonparkour.com/support/privacy-policy/',
+          'http://staging.londonparkour.com/support/pricing/',
+          'http://staging.londonparkour.com/support/photography-video/',
+          'http://staging.londonparkour.com/support/personal-training-pt/',
+          'http://staging.londonparkour.com/support/hiring-us/',
+          'http://staging.londonparkour.com/support/gift-cards/',
+          'http://staging.londonparkour.com/support/discounts/',
+          'http://staging.londonparkour.com/support/equality-policy/',
+          'http://staging.londonparkour.com/support/contacting-us/',
+          'http://staging.londonparkour.com/support/code-of-conduct/',
+          'http://staging.londonparkour.com/event/',
+          'http://staging.londonparkour.com/amp/homepage/',
+          'http://staging.londonparkour.com/amp/classes/',
+          'http://staging.londonparkour.com/amp/pt/'
         ]
 
     steps:
@@ -53,24 +82,6 @@ jobs:
             ${{ matrix.urls }}
           uploadArtifacts: true
           configPath: './.github/workflows/setup/lighthouse-config.json'
-
-
-
-  # lighthouse_002:
-
-  #   runs-on: ubuntu-latest
-  #   name: Lighthouse 002 - Group 2
-
-  #   steps:
-
-  #     - uses: actions/checkout@v2
-  #     - name: Run Lighthouse on url
-  #       uses: treosh/lighthouse-ci-action@v7
-  #       with:
-  #         urls: |
-  #           https://staging.londonparkour.com/classes
-  #         uploadArtifacts: true
-  #         configPath: './.github/workflows/setup/lighthouse-config.json'
 
 
   upload:
@@ -97,14 +108,6 @@ jobs:
           sudo mv ./.github/workflows/setup/github_index.html ./public/index.html
 
 
-      # DEBUG with NGROK.
-      # - name: Start SSH session
-      #   uses: luchihoratiu/debug-via-ssh@main
-      #   with:
-      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-      #     NGROK_REGION: eu
-
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
@@ -116,37 +119,3 @@ jobs:
 
 
 
-            # http://staging.londonparkour.com
-            # http://staging.londonparkour.com/classes
-            # http://staging.londonparkour.com/error
-            # http://staging.londonparkour.com/bookings
-            # http://staging.londonparkour.com/support
-            # http://staging.londonparkour.com/military
-            # http://staging.londonparkour.com/pt
-            # http://staging.londonparkour.com/group
-            # http://staging.londonparkour.com/giftcards
-            # http://staging.londonparkour.com/contact
-            # http://staging.londonparkour.com/stripe-checkout-result
-            # http://staging.londonparkour.com/event
-            # http://staging.londonparkour.com/support/beginner-class
-            # http://staging.londonparkour.com/support/injury-professionals
-            # http://staging.londonparkour.com/support/class-locations
-            # http://staging.londonparkour.com/support/coaches
-            # http://staging.londonparkour.com/support/youth-class
-            # http://staging.londonparkour.com/support/updates
-            # http://staging.londonparkour.com/support/terms-of-service
-            # http://staging.londonparkour.com/support/student-waiver
-            # http://staging.londonparkour.com/support/privacy-policy
-            # http://staging.londonparkour.com/support/pricing
-            # http://staging.londonparkour.com/support/photography-video
-            # http://staging.londonparkour.com/support/personal-training-pt
-            # http://staging.londonparkour.com/support/hiring-us
-            # http://staging.londonparkour.com/support/gift-cards
-            # http://staging.londonparkour.com/support/discounts
-            # http://staging.londonparkour.com/support/equality-policy
-            # http://staging.londonparkour.com/support/contacting-us
-            # http://staging.londonparkour.com/support/code-of-conduct
-            # http://staging.londonparkour.com/event
-            # http://staging.londonparkour.com/amp/homepage
-            # http://staging.londonparkour.com/amp/classes
-            # http://staging.londonparkour.com/amp/pt
