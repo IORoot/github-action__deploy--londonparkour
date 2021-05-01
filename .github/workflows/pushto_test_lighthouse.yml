@@ -7,6 +7,13 @@
 # - https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
 # - https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
 
+  #  ┌───────────────────────────────────────────┐ 
+  #  │                                           │░
+  #  │              JOB: LIGHTHOUSE              │░
+  #  │                                           │░
+  #  └───────────────────────────────────────────┘░
+  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
 name: Test - Lighthouse [CI]
 
 on:
@@ -17,196 +24,39 @@ on:
   workflow_dispatch:
 
 
-env:
-  theme:  'wp-theme__londonparkour--v5'
-  url:    'http://127.0.0.1'
-  dest:   './screenshots'
-  file:   './screenshots/screenshot.jpg'
-  php:    '7.4'
-
 jobs:
 
-  #  ┌───────────────────────────────────────────┐ 
-  #  │                                           │░
-  #  │              JOB: LIGHTHOUSE              │░
-  #  │                                           │░
-  #  └───────────────────────────────────────────┘░
-  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  lighthouse_001:
 
-
-  lighthouse:
-
-
-    runs-on: ubuntu-18.04
-    name: Lighthouse tests
+    runs-on: ubuntu-latest
+    name: Lighthouse 001 - https://staging.londonparkour.com
 
     steps:
 
-      # Checkout repo with submodules
-      # https://github.com/marketplace/actions/checkout-submodules 
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-
-
-      # Unlock with git-crypt.
-      - name: Unlock secrets
-        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
-        env:
-          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
-
-
-      # Start MySQL
-      - name: Start mySQL
-        run: |
-          sudo systemctl enable mysql.service
-          sudo systemctl start mysql.service
-
-
-      # Install Database once decrypted with git-crypt and GPG key.
-      # https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
-      - name: Install Database
-        run: |
-          mysql -uroot -proot -e "DROP DATABASE IF EXISTS dev_londonparkour_com"
-          mysql -uroot -proot -e "CREATE DATABASE dev_londonparkour_com"
-          mysql -uroot -proot dev_londonparkour_com < ./wp-content/database/dev_londonparkour_com.sql
-          mysql -uroot -proot -e "CREATE USER 'ldnpk'@'localhost' IDENTIFIED BY '123abc';"
-          mysql -uroot -proot -e "GRANT ALL on dev_londonparkour_com.* to 'ldnpk'@'localhost';"
-          mysql -uroot -proot -e "FLUSH PRIVILEGES;"
-
-
-
-      # Taken from: https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
-      - name: Setup Apache
-        run: sudo bash .github/workflows/setup/setup-apache.sh ${{ github.workspace }} ${{ env.php }}
-
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.php }}
-          extensions: mbstring, intl, gd, xml, dom, json, fileinfo, curl, zip, iconv, simplexml
-
-
-      # Clone wordpress fresh install
-      - name: Install Wordpress
-        run: |
-          curl -O https://wordpress.org/latest.tar.gz
-          tar --strip-components=1 -xzvf latest.tar.gz
-          rm latest.tar.gz
-
-
-      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
-      - name: Composer Install
-        run: |
-          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
-          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
-
-
-      - name: Install WP-Cli
-        run: |
-          sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
-          sudo chmod +x wp-cli.phar
-          sudo mv wp-cli.phar /usr/local/bin/wp
-          wp --info
-          wp plugin activate wp-rocket
-
-
-      # # DEBUG with NGROK.
-      # - name: Start SSH session
-      #   uses: luchihoratiu/debug-via-ssh@main
-      #   with:
-      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
-      #     NGROK_REGION: eu
-
-
-      # Installing Node for tools
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x  
-
-
-      # Install NPM Packages
-      - name: NPM Install Theme
-        run: |
-          cd ./wp-content/themes/${{ env.theme }}
-          npm install
-
-
-      # Install SHARP (sharp.pixelplumbing.com)
-      - name: Sharp.js WEBP Image Conversion
-        run: |
-          npm install -g sharp-cli
-          cd ./wp-content/uploads
-          sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
-          sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
-
-
-      # Install PostCSS & PostCSS-CLI
-      - name: PostCSS for tailwind
-        run: |
-          npm install -g postcss postcss-cli
-          cd ./wp-content/themes/${{env.theme}}/src/assets/
-          NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
-
-
-      # CHOWN for apache
-      - name: Ownership
-        run: |
-          sudo chown -Rf www-data:www-data ./
-
-      # Lighthouse DIR
-      - name: lighthouse DIR
-        run: |
-          mkdir /tmp/lighthouse
-
-
-      - name: Run Lighthouse on urls
+      - name: Run Lighthouse on url
         uses: treosh/lighthouse-ci-action@v7
         with:
           urls: |
-            http://localhost
-            http://localhost/classes
-            http://localhost/error
-            http://localhost/bookings
-            http://localhost/support
-            http://localhost/military
-            http://localhost/pt
-            http://localhost/group
-            http://localhost/giftcards
-            http://localhost/contact
-            http://localhost/stripe-checkout-result
-            http://localhost/event
-            http://localhost/support/beginner-class
-            http://localhost/support/injury-professionals
-            http://localhost/support/class-locations
-            http://localhost/support/coaches
-            http://localhost/support/youth-class
-            http://localhost/support/updates
-            http://localhost/support/terms-of-service
-            http://localhost/support/student-waiver
-            http://localhost/support/privacy-policy
-            http://localhost/support/pricing
-            http://localhost/support/photography-video
-            http://localhost/support/personal-training-pt
-            http://localhost/support/hiring-us
-            http://localhost/support/gift-cards
-            http://localhost/support/discounts
-            http://localhost/support/equality-policy
-            http://localhost/support/contacting-us
-            http://localhost/support/code-of-conduct
-            http://localhost/event
-            http://localhost/amp/homepage
-            http://localhost/amp/classes
-            http://localhost/amp/pt
+            https://staging.londonparkour.com
           uploadArtifacts: true
           configPath: './.github/workflows/setup/lighthouse-config.json'
 
-          
-      - name: Lighthouse Results
-        uses: actions/upload-artifact@v2
+
+
+
+  lighthouse_002:
+
+    runs-on: ubuntu-latest
+    name: Lighthouse 002 - https://staging.londonparkour.com/classes
+
+    steps:
+
+      - uses: actions/checkout@v2
+      - name: Run Lighthouse on url
+        uses: treosh/lighthouse-ci-action@v7
         with:
-          name: Lighthouse Results  
-          path: /tmp/lighthouse/
+          urls: |
+            https://staging.londonparkour.com
+          uploadArtifacts: true
+          configPath: './.github/workflows/setup/lighthouse-config.json'
