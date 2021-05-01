@@ -85,6 +85,7 @@ jobs:
           cd ./public
           ls -la
           pwd
+          chmod +x github_pages_index.sh
           sudo /bin/bash ./github_pages_index.sh
 
       # DEBUG with NGROK.
