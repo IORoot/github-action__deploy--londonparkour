@@ -44,7 +44,6 @@ jobs:
 
 
 
-
   lighthouse_002:
 
     runs-on: ubuntu-latest
@@ -60,3 +59,39 @@ jobs:
             https://staging.londonparkour.com
           uploadArtifacts: true
           configPath: './.github/workflows/setup/lighthouse-config.json'
+
+
+  upload:
+
+
+    runs-on: ubuntu-latest
+    name: Upload to netlify
+    needs: [lighthouse_001, lighthouse_002]
+
+    steps:
+
+      - name: Download lighthouse results
+        uses: actions/download-artifact@v2
+        with:
+          name: lighthouse-results
+
+      - name: Move into build folder
+        run: |
+          ls -la
+          sudo mkdir build
+          mv *.html ./build
+
+      # DEBUG with NGROK.
+      # - name: Start SSH session
+      #   uses: luchihoratiu/debug-via-ssh@main
+      #   with:
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.NGROK_SSH_PASS }}
+      #     NGROK_REGION: eu
+
+      - name: Deploy Netlify
+        uses: danakim/gh-action-deploy-netlify@master
+        with:
+          AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          DEPLOY_PROD: true
