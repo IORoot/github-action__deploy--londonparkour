@@ -65,10 +65,12 @@ jobs:
 
 
     runs-on: ubuntu-latest
-    name: Upload to netlify
+    name: Upload to github actions
     needs: [lighthouse_001, lighthouse_002]
 
     steps:
+
+      - uses: actions/checkout@v2
 
       - name: Download lighthouse results
         uses: actions/download-artifact@v2
@@ -79,6 +81,10 @@ jobs:
         run: |
           sudo mkdir ./public
           sudo mv *.html ./public
+          ls -la
+          pwd
+          mv ./setup/github_pages_index.sh ./
+          sudo ./github_pages_index.sh
 
       # DEBUG with NGROK.
       # - name: Start SSH session
