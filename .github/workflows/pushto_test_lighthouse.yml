@@ -81,9 +81,8 @@ jobs:
         run: |
           sudo mkdir ./public
           sudo mv *.html ./public
-          ls -la
-          pwd
-          mv ./setup/github_pages_index.sh ./
+          mv ./.gthub/workflows/setup/github_pages_index.sh ./public
+          cd ./public
           sudo ./github_pages_index.sh
 
       # DEBUG with NGROK.
