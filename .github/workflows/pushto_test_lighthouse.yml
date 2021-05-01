@@ -77,9 +77,10 @@ jobs:
 
       - name: Move into build folder
         run: |
+          pwd
           ls -la
-          sudo mkdir /github/home/build
-          sudo mv *.html /github/home/build
+          sudo mkdir /home/runner/work/STAGING/STAGING/build
+          sudo mv *.html /home/runner/work/STAGING/STAGING/build
           ls -la
 
       # DEBUG with NGROK.
