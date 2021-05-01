@@ -77,16 +77,23 @@ jobs:
         with:
           name: lighthouse-results
 
+      # - name: Move into build folder
+      #   run: |
+      #     sudo mkdir ./public
+      #     sudo mv *.html ./public
+      #     sudo mv ./.github/workflows/setup/github_pages_index.sh ./public
+      #     cd ./public
+      #     ls -la
+      #     pwd
+      #     chmod +x github_pages_index.sh
+      #     sudo /bin/bash ./github_pages_index.sh
+
       - name: Move into build folder
         run: |
           sudo mkdir ./public
           sudo mv *.html ./public
-          sudo mv ./.github/workflows/setup/github_pages_index.sh ./public
-          cd ./public
-          ls -la
-          pwd
-          chmod +x github_pages_index.sh
-          sudo /bin/bash ./github_pages_index.sh
+          sudo mv ./.github/workflows/setup/github_index.html ./public/index.html
+          
 
       # DEBUG with NGROK.
       # - name: Start SSH session
