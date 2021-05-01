@@ -24,12 +24,21 @@ on:
   workflow_dispatch:
 
 
+
 jobs:
 
   lighthouse_001:
 
     runs-on: ubuntu-latest
-    name: Lighthouse 001 - https://staging.londonparkour.com
+    name: Lighthouse Matrix
+    continue-on-error: true
+
+    strategy:
+      matrix:
+        urls: [
+          'https://staging.londonparkour.com',
+          'https://staging.londonparkour.com/classes'
+        ]
 
     steps:
 
@@ -38,27 +47,27 @@ jobs:
         uses: treosh/lighthouse-ci-action@v7
         with:
           urls: |
-            https://staging.londonparkour.com
+            ${{ matrix.urls }}
           uploadArtifacts: true
           configPath: './.github/workflows/setup/lighthouse-config.json'
 
 
 
-  lighthouse_002:
+  # lighthouse_002:
 
-    runs-on: ubuntu-latest
-    name: Lighthouse 002 - https://staging.londonparkour.com/classes
+  #   runs-on: ubuntu-latest
+  #   name: Lighthouse 002 - Group 2
 
-    steps:
+  #   steps:
 
-      - uses: actions/checkout@v2
-      - name: Run Lighthouse on url
-        uses: treosh/lighthouse-ci-action@v7
-        with:
-          urls: |
-            https://staging.londonparkour.com
-          uploadArtifacts: true
-          configPath: './.github/workflows/setup/lighthouse-config.json'
+  #     - uses: actions/checkout@v2
+  #     - name: Run Lighthouse on url
+  #       uses: treosh/lighthouse-ci-action@v7
+  #       with:
+  #         urls: |
+  #           https://staging.londonparkour.com/classes
+  #         uploadArtifacts: true
+  #         configPath: './.github/workflows/setup/lighthouse-config.json'
 
 
   upload:
@@ -77,23 +86,13 @@ jobs:
         with:
           name: lighthouse-results
 
-      # - name: Move into build folder
-      #   run: |
-      #     sudo mkdir ./public
-      #     sudo mv *.html ./public
-      #     sudo mv ./.github/workflows/setup/github_pages_index.sh ./public
-      #     cd ./public
-      #     ls -la
-      #     pwd
-      #     chmod +x github_pages_index.sh
-      #     sudo /bin/bash ./github_pages_index.sh
 
       - name: Move into build folder
         run: |
           sudo mkdir ./public
           sudo mv *.html ./public
           sudo mv ./.github/workflows/setup/github_index.html ./public/index.html
-          
+
 
       # DEBUG with NGROK.
       # - name: Start SSH session
@@ -111,3 +110,40 @@ jobs:
           build_dir: public
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+            # http://staging.londonparkour.com
+            # http://staging.londonparkour.com/classes
+            # http://staging.londonparkour.com/error
+            # http://staging.londonparkour.com/bookings
+            # http://staging.londonparkour.com/support
+            # http://staging.londonparkour.com/military
+            # http://staging.londonparkour.com/pt
+            # http://staging.londonparkour.com/group
+            # http://staging.londonparkour.com/giftcards
+            # http://staging.londonparkour.com/contact
+            # http://staging.londonparkour.com/stripe-checkout-result
+            # http://staging.londonparkour.com/event
+            # http://staging.londonparkour.com/support/beginner-class
+            # http://staging.londonparkour.com/support/injury-professionals
+            # http://staging.londonparkour.com/support/class-locations
+            # http://staging.londonparkour.com/support/coaches
+            # http://staging.londonparkour.com/support/youth-class
+            # http://staging.londonparkour.com/support/updates
+            # http://staging.londonparkour.com/support/terms-of-service
+            # http://staging.londonparkour.com/support/student-waiver
+            # http://staging.londonparkour.com/support/privacy-policy
+            # http://staging.londonparkour.com/support/pricing
+            # http://staging.londonparkour.com/support/photography-video
+            # http://staging.londonparkour.com/support/personal-training-pt
+            # http://staging.londonparkour.com/support/hiring-us
+            # http://staging.londonparkour.com/support/gift-cards
+            # http://staging.londonparkour.com/support/discounts
+            # http://staging.londonparkour.com/support/equality-policy
+            # http://staging.londonparkour.com/support/contacting-us
+            # http://staging.londonparkour.com/support/code-of-conduct
+            # http://staging.londonparkour.com/event
+            # http://staging.londonparkour.com/amp/homepage
+            # http://staging.londonparkour.com/amp/classes
+            # http://staging.londonparkour.com/amp/pt
