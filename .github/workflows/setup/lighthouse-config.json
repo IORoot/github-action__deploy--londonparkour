@@ -1,7 +1,9 @@
 {
     "ci": {
-        "upload": {
-            "reportFilenamePattern": "report-%%HOSTNAME%%_%%PATHNAME%%-%%DATETIME%%.%%EXTENSION%%"
+        "collect": {
+            "settings": {
+                "onlyCategories": ["performance"]
+            }
         }
     }
 }
