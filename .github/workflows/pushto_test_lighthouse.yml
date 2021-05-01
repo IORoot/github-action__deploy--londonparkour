@@ -81,7 +81,7 @@ jobs:
         run: |
           sudo mkdir ./public
           sudo mv *.html ./public
-          mv ./.github/workflows/setup/github_pages_index.sh ./public
+          sudo mv ./.github/workflows/setup/github_pages_index.sh ./public
           cd ./public
           sudo ./github_pages_index.sh
 
