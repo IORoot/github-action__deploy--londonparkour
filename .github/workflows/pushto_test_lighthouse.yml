@@ -48,7 +48,7 @@ jobs:
           'http://staging.londonparkour.com/contact/',
           'http://staging.londonparkour.com/stripe-checkout-result/',
           'http://staging.londonparkour.com/event/',
-          'http://staging.londonparkour.com/support/beginner-class/',
+          'http://staging.londonparkour.com/support/beginners-class/',
           'http://staging.londonparkour.com/support/injury-professionals/',
           'http://staging.londonparkour.com/support/class-locations/',
           'http://staging.londonparkour.com/support/coaches/',
