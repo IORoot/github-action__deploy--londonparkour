@@ -16,7 +16,7 @@ on:
 env:
   server: live
   ssh:    'root@londonparkour.com'
-  dest:   '/var/www/vhosts/live.londonparkour.com/'
+  dest:   '/var/www/vhosts/londonparkour.com/'
   theme:  'wp-theme__londonparkour--v5'
   db:     'live_londonparkour_com'
     
