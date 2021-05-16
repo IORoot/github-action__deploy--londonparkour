@@ -223,7 +223,11 @@ Redirect 301 /terms-of-service	    /support/terms-of-service
 Redirect 301 /news-instagram	    /support/news-instagram
 Redirect 301 /downloads	            /support/downloads
 Redirect 301 /classes/waiver/	    /support/student-waiver
-# v4 -> v5. 
+# v4 -> v5. Extras
 Redirect 301 /mobile-app 					/support
 Redirect 301 /support/mobile-app-changelog 	/support
-# END 301 Redirects
+Redirect 301 /gmb                           https://www.google.com/search?q=londonparkour.com
+Redirect 301 /maps                          https://g.page/londonparkour?gm
+Redirect 301 /yt                            https://youtube.com/londonparkour
+Redirect 301 /ig                            https://instagram.com/london_parkour
+# END 301 Redirectsl
