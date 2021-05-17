@@ -125,7 +125,7 @@ jobs:
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             cp ~/secrets/${{env.server}}/gcal-sync.json    ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
-            cp ~/secrets/${{env.server}}/oauth--gCAL.json  ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
+            cp ~/secrets/${{env.server}}/gcal-sync.json    ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
             cp ${{env.dest}}/../${{env.server}}-config.php ${{env.dest}}/wp-config.php
 
 
