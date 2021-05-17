@@ -102,7 +102,6 @@ jobs:
             mysql -uldnpkstaging -p${{secrets.MYSQL_PASSWORD}} -h localhost staging_londonparkour_com < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
 
 
-        
       # Clone wordpress fresh install
       - name: Install Wordpress
         uses: JimCronqvist/action-ssh@master
@@ -123,8 +122,8 @@ jobs:
           hosts: ${{env.ssh}}
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
-            cp ~/secrets/gcal-sync.json   ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
-            cp ~/secrets/oauth--gCAL.json ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
+            cp ~/secrets/${{env.server}}/gcal-sync.json    ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
+            cp ~/secrets/${{env.server}}/oauth--gCAL.json  ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
             cp ${{env.dest}}/../${{env.server}}-config.php ${{env.dest}}/wp-config.php
 
 
