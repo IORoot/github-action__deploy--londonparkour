@@ -18,6 +18,7 @@ env:
   ssh:    'root@londonparkour.com'
   dest:   '/var/www/vhosts/staging.londonparkour.com/'
   theme:  'wp-theme__londonparkour--v5'
+  db:     'staging_londonparkour_com'
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
