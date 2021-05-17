@@ -101,11 +101,6 @@ jobs:
             mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "DROP DATABASE IF EXISTS ${{ env.db }}"
             mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "CREATE DATABASE ${{ env.db }}"
             mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -h localhost ${{ env.db }} < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_posts SET guid = replace(guid, 'dev.londonparkour','${{ env.server }}.londonparkour');" ${{ env.db }}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_posts SET post_content = replace(post_content, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_options SET option_value = replace(option_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
-
         
       # Clone wordpress fresh install
       - name: Install Wordpress
@@ -166,3 +161,18 @@ jobs:
             sudo -u www-data wp option get AcceptStripePayments-settings  --format=json | sed 's/is_live":0/is_live":1/' > /tmp/stripe_settings_live_on.json
             sudo -u www-data wp option update AcceptStripePayments-settings  --format=json < /tmp/stripe_settings_live_on.json
             rm /tmp/stripe_settings_live_on.json
+
+
+      # SEARCH/REPLACE Database
+      - name: Search & Replace in Database
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_posts SET guid = replace(guid, 'dev.londonparkour','${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_posts SET post_content = replace(post_content, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_options SET option_value = replace(option_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}   
+            
