@@ -147,6 +147,7 @@ jobs:
             cd ${{env.dest}}
             sudo -u www-data wp plugin activate wp-rocket
             sudo -u www-data wp plugin delete hello akismet
+            sudo -u www-data wp plugin update --all
             sudo -u www-data wp theme delete twentynineteen twentytwenty twentytwentyone
 
 
