@@ -172,8 +172,8 @@ jobs:
           privateKey: ${{secrets.DEPLOY_KEY}}
           command: |
             cd ${{env.dest}}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_posts SET guid = replace(guid, 'dev.londonparkour','${{ env.server }}.londonparkour');" ${{ env.db }}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_posts SET post_content = replace(post_content, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "UPDATE wp_options SET option_value = replace(option_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}   
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_posts SET guid = replace(guid, 'dev.londonparkour','${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_posts SET post_content = replace(post_content, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_options SET option_value = replace(option_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}     
             
