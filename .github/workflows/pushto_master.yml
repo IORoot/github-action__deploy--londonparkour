@@ -148,3 +148,17 @@ jobs:
             sudo -u www-data wp plugin activate wp-rocket
             sudo -u www-data wp plugin delete hello akismet
             sudo -u www-data wp theme delete twentynineteen twentytwenty twentytwentyone
+
+
+      # Switch on Stripe to LIVE
+      - name: Activate LIVE Stripe
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            sudo -u www-data wp option get AcceptStripePayments-settings  --format=json | sed 's/is_live":0/is_live":1/' > /tmp/stripe_settings_live_on.json
+            sudo -u www-data wp option update AcceptStripePayments-settings  --format=json < /tmp/stripe_settings_live_on.json
+            rm /tmp/stripe_settings_live_on.json
+  
