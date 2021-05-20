@@ -4,7 +4,7 @@ name: Create a VERSION TAG (Deploy to Staging)
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow whenever a new version tag is added. v1, v5.0.1, etc...
+  # Triggers the workflow whenever a new version tag is added. v1, v5.0.1, etc... 
   push:
     tags:
       - "v*"
