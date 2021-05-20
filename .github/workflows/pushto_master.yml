@@ -1,15 +1,10 @@
-# This is a basic workflow to help you get started with Actions
-
 name: (STAGING) Push to master
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow whenever a new version tag is added. v1, v5.0.1, etc... 
+
   push:
     branches:
       - master
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 env:
@@ -19,16 +14,16 @@ env:
   theme:  'wp-theme__londonparkour--v5'
   db:     'staging_londonparkour_com'
     
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # RUN IF -test is NOT in commit message
+    # ---------------------------------------------------------
+    if: "!contains(github.event.head_commit.message, '-test') || contains(github.event.head_commit.message, '-nodeploy')"
+    # ---------------------------------------------------------
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
           
       # Checkout repo with submodules
