@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy to LIVE as a Release
+name: Create a RELEASE (Deploy to Live)
 
 # Controls when the action will run. 
 on:
