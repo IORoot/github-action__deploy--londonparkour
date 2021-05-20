@@ -3,9 +3,8 @@ name: Test - pa11y [STAGING]
 
 on:
   push:
-    tags:
-      - tests*
-      - test_pa11y*
+    branches:
+      - tests
   workflow_dispatch:
 
 

@@ -3,9 +3,8 @@ name: Test - Broken Links [STAGING]
 
 on:
   push:
-    tags:
-      - tests*
-      - test_links*
+    branches:
+      - tests
   workflow_dispatch:
 
 

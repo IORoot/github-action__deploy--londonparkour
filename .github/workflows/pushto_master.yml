@@ -1,13 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Create a VERSION TAG (Deploy to Staging)
+name: (STAGING) Push to master
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow whenever a new version tag is added. v1, v5.0.1, etc... 
   push:
-    tags:
-      - "v*"
+    branches:
+      - master
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

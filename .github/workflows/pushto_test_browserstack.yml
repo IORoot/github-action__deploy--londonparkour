@@ -3,9 +3,8 @@ name: Test - browserstack [STAGING]
 
 on:
   push:
-    tags:
-      - tests*
-      - test_browserstack*
+    branches:
+      - tests
   workflow_dispatch:
 
 
