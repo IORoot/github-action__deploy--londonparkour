@@ -3,10 +3,11 @@ name: Test - browserstack [STAGING]
 
 on:
   push:
-    branches: 
-      - test
-      - test_browserstack
+    tags:
+      - tests*
+      - test_browserstack*
   workflow_dispatch:
+
 
 env:
   url: 'https://staging.londonparkour.com'

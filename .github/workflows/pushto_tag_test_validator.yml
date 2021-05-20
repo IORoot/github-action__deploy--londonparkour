@@ -3,9 +3,9 @@ name: Test - W3C validator [STAGING]
 
 on:
   push:
-    branches: 
-      - test
-      - test_validator
+    tags:
+      - tests*
+      - test_validator*
   workflow_dispatch:
 
 env:

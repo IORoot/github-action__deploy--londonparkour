@@ -18,9 +18,9 @@ name: Test - Lighthouse [CI]
 
 on:
   push:
-    branches: 
-      - test
-      - test_lighthouse
+    tags:
+      - tests*
+      - test_lighthouse*
   workflow_dispatch:
 
 

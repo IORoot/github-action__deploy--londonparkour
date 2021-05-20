@@ -11,9 +11,9 @@ name: Test - Screencapture [CI]
 
 on:
   push:
-    branches: 
-      - test
-      - test_screencapture
+    tags:
+      - tests*
+      - test_screencapture*
   workflow_dispatch:
 
 
