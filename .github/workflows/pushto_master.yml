@@ -21,7 +21,7 @@ jobs:
 
     # RUN IF -test is NOT in commit message
     # ---------------------------------------------------------
-    if: "!contains(github.event.head_commit.message, '-test') || !contains(github.event.head_commit.message, '-nodeploy')"
+    if: "!contains(github.event.head_commit.message, '-nodeploy')"
     # ---------------------------------------------------------
 
     steps:
