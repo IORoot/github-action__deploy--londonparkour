@@ -19,7 +19,7 @@ name: Test - Lighthouse [CI]
 on:
   push:
     branches:
-      - tests
+      - master
   workflow_dispatch:
 
 
@@ -31,6 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Lighthouse Matrix
     continue-on-error: true
+
+    # RUN IF -lighthouse or -test in commit message
+    if: "contains(github.event.head_commit.message, ' -lighthouse ') || contains(github.event.head_commit.message, ' -test ')"
 
     strategy:
       matrix:

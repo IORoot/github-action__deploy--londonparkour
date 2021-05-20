@@ -4,7 +4,7 @@ name: Test - Broken Links [STAGING]
 on:
   push:
     branches:
-      - tests
+      - master
   workflow_dispatch:
 
 
@@ -23,6 +23,8 @@ jobs:
 
     runs-on: ubuntu-18.04
     name: BLC tests
+    # RUN IF -links or -test in commit message
+    if: "contains(github.event.head_commit.message, ' -links ') || contains(github.event.head_commit.message, ' -test ')"
 
     steps:
 
