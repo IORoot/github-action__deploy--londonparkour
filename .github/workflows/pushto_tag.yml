@@ -7,7 +7,7 @@ on:
   # Triggers the workflow whenever a new version tag is added. v1, v5.0.1, etc...
   push:
     tags:
-      - v*
+      - "v*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
