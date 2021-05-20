@@ -1,5 +1,5 @@
 
-name: Test - Broken Links [STAGING]
+name: (TEST) -Links
 
 on:
   push:
@@ -10,21 +10,12 @@ on:
 
 jobs:
 
-  #  ┌───────────────────────────────────────────┐ 
-  #  │                                           │░
-  #  │                  JOB: BLC                 │░
-  #  │                                           │░
-  #  └───────────────────────────────────────────┘░
-  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
   linkcheck:
-
 
     runs-on: ubuntu-18.04
     name: BLC tests
     # RUN IF -links or -test in commit message
-    if: "contains(github.event.head_commit.message, ' -links ') || contains(github.event.head_commit.message, ' -test ')"
+    if: "contains(github.event.head_commit.message, '-links') || contains(github.event.head_commit.message, '-test')"
 
     steps:
 

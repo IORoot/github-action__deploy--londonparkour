@@ -1,5 +1,5 @@
 
-name: Test - W3C validator [STAGING]
+name: (TEST) -validator
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Validator tests
         # RUN IF -validator or -test in commit message
-    if: "contains(github.event.head_commit.message, ' -validator ') || contains(github.event.head_commit.message, ' -test ')"
+    if: "contains(github.event.head_commit.message, '-validator') || contains(github.event.head_commit.message, '-test')"
 
     steps:
 

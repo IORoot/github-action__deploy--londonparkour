@@ -7,14 +7,7 @@
 # - https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
 # - https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
 
-  #  ┌───────────────────────────────────────────┐ 
-  #  │                                           │░
-  #  │              JOB: LIGHTHOUSE              │░
-  #  │                                           │░
-  #  └───────────────────────────────────────────┘░
-  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-name: Test - Lighthouse [CI]
+name: (TEST) -Lighthouse
 
 on:
   push:
@@ -33,7 +26,7 @@ jobs:
     continue-on-error: true
 
     # RUN IF -lighthouse or -test in commit message
-    if: "contains(github.event.head_commit.message, ' -lighthouse ') || contains(github.event.head_commit.message, ' -test ')"
+    if: "contains(github.event.head_commit.message, '-lighthouse') || contains(github.event.head_commit.message, '-test')"
 
     strategy:
       matrix:

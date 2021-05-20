@@ -7,7 +7,7 @@
 # - https://github.com/PrestaShop/PrestaShop/blob/develop/.github/workflows/sanity-74.yml
 # - https://freek.dev/1590-how-to-use-a-mysql-database-on-github-actions
 
-name: Test - Screencapture [CI]
+name: (TEST) -screencapture
 
 on:
   push:
@@ -25,21 +25,12 @@ env:
 
 jobs:
 
-  #  ┌───────────────────────────────────────────┐ 
-  #  │                                           │░
-  #  │            JOB: SCREENCAPTURE             │░
-  #  │                                           │░
-  #  └───────────────────────────────────────────┘░
-  #   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
   screencapture:
-
 
     runs-on: ubuntu-18.04
     name: Screencapture
         # RUN IF -screencapture or -test in commit message
-    if: "contains(github.event.head_commit.message, ' -screencapture ') || contains(github.event.head_commit.message, ' -test ')"
+    if: "contains(github.event.head_commit.message, '-screencapture') || contains(github.event.head_commit.message, '-test')"
 
     steps:
 
