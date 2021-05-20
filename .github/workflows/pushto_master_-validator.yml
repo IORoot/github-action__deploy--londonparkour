@@ -17,7 +17,7 @@ jobs:
 
     runs-on: ubuntu-latest
     name: Validator tests
-        # RUN IF -validator or -test in commit message
+    # RUN IF -validator or -test in commit message
     if: "contains(github.event.head_commit.message, '-validator') || contains(github.event.head_commit.message, '-test')"
 
     steps:
