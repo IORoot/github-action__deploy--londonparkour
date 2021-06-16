@@ -53,3 +53,9 @@ git push origin master
 ## Post-deployment Tasks
 
 - login with google calendar on the gCal-importer plugin.
+
+## Changelog
+
+v5.0.1 - Fixes for pulse URL, AMP Titles and favicon.
+
+v5.0.0 - New Tailwind, lightweight major overhaul of website.
