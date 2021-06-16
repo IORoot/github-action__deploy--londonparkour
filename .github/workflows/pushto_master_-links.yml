@@ -7,6 +7,8 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  target:    'https://londonparkour.com'
 
 jobs:
 
@@ -19,24 +21,18 @@ jobs:
 
     steps:
 
-
       - name: download blc
         run: |
           sudo npm install -g npm@latest
           sudo npm install -g broken-link-checker
-
 
       - name: run blc
         run: |
           set -x
           (blc --input https://staging.londonparkour.com -ro &>> /tmp/results.txt) || true
 
-
-
       - name: BLC Results
         uses: actions/upload-artifact@v2
         with:
           name: Results File  
           path: /tmp/results.txt
-
-
