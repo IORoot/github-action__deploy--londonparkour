@@ -191,38 +191,38 @@ Redirect 301 /class 				                /classes/
 RewriteRule  ^/?class/(.\*)$ 		                /classes/ [R=301,L]
 Redirect 301 /classes/stripe-checkout-result/	    /stripe-checkout-result/
 # v4 -> v5. Private Sessions -> (groups)
-Redirect 301 /privatesessions 		/grouptraining/
+Redirect 301 /privatesessions 				/grouptraining/
 # v4 -> v5. Custom Booking Pages  -> bookings
-Redirect 301 /bookings/youth 		/bookings/
-Redirect 301 /bookings/custom 		/bookings/
+Redirect 301 /bookings/youth 				/bookings/
+Redirect 301 /bookings/custom 				/bookings/
 # v4 -> v5. Labs
-Redirect 301 /tutorial 				https://labs.londonparkour.com
-Redirect 301 /tutorials 			https://labs.londonparkour.com
-Redirect 301 /tutorial-playlist 	https://labs.londonparkour.com
-Redirect 301 /tutorial-categories 	https://labs.londonparkour.com
-Redirect 301 /tutorial-video 		https://labs.londonparkour.com
+Redirect 301 /tutorial 						https://labs.londonparkour.com
+Redirect 301 /tutorials 					https://labs.londonparkour.com
+Redirect 301 /tutorial-playlist 			https://labs.londonparkour.com
+Redirect 301 /tutorial-categories 			https://labs.londonparkour.com
+Redirect 301 /tutorial-video 				https://labs.londonparkour.com
 # v4 -> v5 Posts -> Support
-Redirect 301 /about 				/support/
-Redirect 301 /beginner-class	    /support/beginner-class
-Redirect 301 /personal-training-pt	/support/personal-training-pt
-Redirect 301 /youth-class	        /support/youth-class
-Redirect 301 /free-class	        /support/free-class
-Redirect 301 /class-locations	    /support/class-locations
-Redirect 301 /hiring-us	            /support/hiring-us
-Redirect 301 /pricing	            /support/pricing
-Redirect 301 /gift-cards	        /support/gift-cards
-Redirect 301 /discounts	            /support/discounts
-Redirect 301 /injury-professionals	/support/injury-professionals
-Redirect 301 /coaches	            /support/coaches
-Redirect 301 /student-waiver	    /support/student-waiver
-Redirect 301 /contacting-us	        /support/contacting-us
-Redirect 301 /photography-video	    /support/photography-video
-Redirect 301 /equality-policy	    /support/equality-policy
-Redirect 301 /code-of-conduct	    /support/code-of-conduct
-Redirect 301 /terms-of-service	    /support/terms-of-service
-Redirect 301 /news-instagram	    /support/news-instagram
-Redirect 301 /downloads	            /support/downloads
-Redirect 301 /classes/waiver/	    /support/student-waiver
+Redirect 301 /about 						/support/
+Redirect 301 /beginner-class	    		/support/beginner-class
+Redirect 301 /personal-training-pt			/support/personal-training-pt
+Redirect 301 /youth-class	        		/support/youth-class
+Redirect 301 /free-class	        		/support/free-class
+Redirect 301 /class-locations	    		/support/class-locations
+Redirect 301 /hiring-us	            		/support/hiring-us
+Redirect 301 /pricing	            		/support/pricing
+Redirect 301 /gift-cards	        		/support/gift-cards
+Redirect 301 /discounts	            		/support/discounts
+Redirect 301 /injury-professionals			/support/injury-professionals
+Redirect 301 /coaches	            		/support/coaches
+Redirect 301 /student-waiver	    		/support/student-waiver
+Redirect 301 /contacting-us	        		/support/contacting-us
+Redirect 301 /photography-video	    		/support/photography-video
+Redirect 301 /equality-policy	    		/support/equality-policy
+Redirect 301 /code-of-conduct	    		/support/code-of-conduct
+Redirect 301 /terms-of-service	    		/support/terms-of-service
+Redirect 301 /news-instagram	    		/support/news-instagram
+Redirect 301 /downloads	            		/support/downloads
+Redirect 301 /classes/waiver/	    		/support/student-waiver
 # v4 -> v5. Extras
 Redirect 301 /mobile-app 					/support
 Redirect 301 /support/mobile-app-changelog 	/support
@@ -230,4 +230,6 @@ Redirect 301 /gmb                           https://www.google.com/search?q=lond
 Redirect 301 /maps                          https://g.page/londonparkour?gm
 Redirect 301 /yt                            https://youtube.com/londonparkour
 Redirect 301 /ig                            https://instagram.com/london_parkour
-# END 301 Redirectsl
+# v5. pulse
+Redirect 301 /pulse 						https://pulse.londonparkour.com
+# END 301 Redirects

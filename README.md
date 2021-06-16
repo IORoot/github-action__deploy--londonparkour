@@ -52,4 +52,4 @@ git push origin master
 
 ## Post-deployment Tasks
 
-- login with google calendar on the gCal sync plugin.
+- login with google calendar on the gCal-importer plugin.
