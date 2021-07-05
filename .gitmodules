@@ -22,10 +22,6 @@
 	path = wp-content/plugins/wp-plugin__advanced-forms--replyto
 	url = https://github.com/IORoot/wp-plugin__advanced-forms--replyto.git
 	ignore = dirty
-[submodule "wp-content/plugins/anime-fx__library"]
-	path = wp-content/plugins/anime-fx__library
-	url = https://github.com/IORoot/anime-fx__library.git
-	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__cpt--events"]
 	path = wp-content/plugins/wp-plugin__cpt--events
 	url = https://github.com/IORoot/wp-plugin__cpt--events.git
