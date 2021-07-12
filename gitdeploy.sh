@@ -7,7 +7,7 @@
 
 
 GIT_BRANCH='master'
-LOCAL_PROJECT_LOCATION='/Users/andypearson/code/LondonParkour.com/dev.londonparkour.com'
+LOCAL_PROJECT_LOCATION='/Users/andypearson/Repository/Code/LondonParkour.com/dev.londonparkour.com'
 VAGRANT_MACHINE='dev.londonparkour.com'
 DUMP_COMMAND='dev.londonparkour.com_dumpdb'
 
@@ -30,13 +30,29 @@ get_vagrant_id(){
 dump_database(){
     printf "${Cyan}Dumping DB.${Green}\n"
     vagrant ssh $ID -c "sudo ${DUMP_COMMAND}"
+
+    RESULT=$?
+    if [ $RESULT -eq 0 ]; then
+        printf "${Green}Dumped Database Successful\n"
+    else
+        printf "${Red}Failed DB Dump\n"
+        exit 1
+    fi
+    
 }
 
 
 move_vagrant_db_to_deploy_repo(){
     printf "${Cyan}Moving Vagrant Database to this deploy repo.\n"
     sudo mv $LOCAL_PROJECT_LOCATION/wp-content/database/*.sql ./wp-content/database/
-    printf "${Green}Moved to ./wp-content/database/\n"
+
+    RESULT=$?
+    if [ $RESULT -eq 0 ]; then
+        printf "${Green}Moved to ./wp-content/database/\n"
+    else
+        printf "${Red}Failed Move\n"
+        exit 1
+    fi 
 }
 
 
@@ -52,7 +68,15 @@ commit_changes_to_repo(){
     git add .
     git commit -m "deploy to ${GIT_BRANCH} branch"
     git push origin $GIT_BRANCH
-    printf "${Green}Repository pushed to origin.\n"
+
+    RESULT=$?
+    if [ $RESULT -eq 0 ]; then
+        printf "${Green}Repository pushed to origin.\n"
+    else
+        printf "${Red}Failed Git Add > Commit > Push\n"
+        exit 1
+    fi 
+    
 }
 
 
@@ -72,6 +96,17 @@ post_deploy_message(){
     printf "\n${Red}Push to LIVE by creating a repository release.\n"
 }
 
+read_confirm(){
+
+    printf "\n${Orange}Push to github Y/n?.\n"
+    read CONFIRM
+    if [[ $CONFIRM == 'Y' ]]; then
+        printf "${Green}Pushing.\n"
+    else
+        printf "${Orange}Exit.\n"
+        exit 1
+    fi
+}
 
 cli_colours() {
     NC='\033[0m'               # NO Colour (reset)
@@ -92,5 +127,6 @@ get_vagrant_id
 dump_database  
 move_vagrant_db_to_deploy_repo 
 update_all_submodules 
+read_confirm
 commit_changes_to_repo 
 post_deploy_message
