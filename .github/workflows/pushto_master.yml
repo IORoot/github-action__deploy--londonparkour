@@ -59,7 +59,7 @@ jobs:
       - name: PostCSS for tailwind
         run: |
           npm install -g postcss postcss-cli
-          cd ./wp-content/themes/${{env.theme}}/src/assets/css/
+          cd ./wp-content/themes/${{env.theme}}/src/assets/
           NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
           
           
