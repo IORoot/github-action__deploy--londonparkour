@@ -23,6 +23,11 @@
 	define('LOGGED_IN_SALT', 	'put your unique phrase here');
 	define('NONCE_SALT', 		'put your unique phrase here');
 
+	/** MailChimp API */
+	define('MAILCHIMP_LIST_ID',		'');
+	define('MAILCHIMP_AUTH_TOKEN',	'');
+	define('MAILCHIMP_ENDPOINT',	'');
+
 	/** Debugging */
 	define('WP_DEBUG',			true);
 	define('WP_DEBUG_DISPLAY',	false);

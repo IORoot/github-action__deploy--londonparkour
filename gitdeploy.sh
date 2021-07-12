@@ -1,7 +1,13 @@
 #!/bin/bash
 
+# 1. dump_database  
+# 2. Copy dump to this reepo 
+# 3. update all submodules 
+# 4. git add > commit > push 
+
+
 GIT_BRANCH='master'
-LOCAL_PROJECT_LOCATION='/Users/andrewpearson/code/LondonParkour.com/dev.londonparkour.com'
+LOCAL_PROJECT_LOCATION='/Users/andypearson/code/LondonParkour.com/dev.londonparkour.com'
 VAGRANT_MACHINE='dev.londonparkour.com'
 DUMP_COMMAND='dev.londonparkour.com_dumpdb'
 
