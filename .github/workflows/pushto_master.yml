@@ -60,8 +60,6 @@ jobs:
         run: |
           npm install -g postcss postcss-cli
           cd ./wp-content/themes/${{env.theme}}/src/assets/css/
-          wget --input-file=page_scan_list --directory-prefix=files/ --adjust-extension -q --show-progress --no-check-certificate
-          cd ..
           NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
           
           
