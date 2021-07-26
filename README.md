@@ -9,7 +9,7 @@ To deploy onto the staging server you can push to the `master` git branch. This 
 If you wish to update this repository with the copy on vagrant, use the command;
 
 ```
-gitdeploy
+./gitdeploy.sh
 ```
 
 This is a bash script in the script-library repository (https://github.com/IORoot/script-library/tree/master/deploy) that will do the following steps:
