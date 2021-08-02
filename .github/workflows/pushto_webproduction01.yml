@@ -1,0 +1,166 @@
+name: (WebProduction01) Create a RELEASE
+
+on:
+
+  workflow_dispatch:
+
+env:
+  server: live
+  ssh:    'root@138.68.159.70'
+  dest:   '/var/www/vhosts/londonparkour.com/'
+  theme:  'wp-theme__londonparkour--v5'
+  db:     'live_londonparkour_com'
+    
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+          
+      # Checkout repo with submodules
+      # https://github.com/marketplace/actions/checkout-submodules 
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          
+      
+      # https://dev.to/shofol/run-your-github-actions-jobs-from-a-specific-directory-1i9e
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x  
+          
+            
+      # Install NPM Packages
+      - name: NPM Install
+        run: |
+          find . ! -path "*/node_modules/*"  -name "package.json"  -execdir npm install \;
+
+
+      # Install SHARP (sharp.pixelplumbing.com)
+      - name: Sharp.js WEBP Image Conversion
+        run: |
+          npm install -g sharp-cli
+          cd ./wp-content/uploads
+          sharp --input **/*.png --output {dir}/{name}.webp --format "webp"
+          sharp --input **/*.jpg --output {dir}/{name}.webp --format "webp"
+
+
+      # Install PostCSS & PostCSS-CLI
+      - name: PostCSS for tailwind
+        run: |
+          npm install -g postcss postcss-cli
+          cd ./wp-content/themes/${{env.theme}}/src/assets/
+          NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
+          
+          
+      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
+      - name: Composer Install
+        run: |
+          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+
+
+      # Deploy repo to server
+      - name: Sync Repo to Server
+        run: |
+          echo "${{secrets.DEPLOY_KEY}}" > deploy_key
+          chmod 600 ./deploy_key
+          rsync -chav --delete\
+            -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
+            --exclude /deploy_key \
+            --exclude /.github/ \
+            ./ ${{env.ssh}}:${{env.dest}}            
+
+
+      # Install Database
+      - name: Install Database
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            git stash
+            git-crypt unlock ~/.gnupg/github_ci.gpg
+            git stash pop
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "DROP DATABASE IF EXISTS ${{ env.db }}"
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "CREATE DATABASE ${{ env.db }}"
+            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -h localhost ${{ env.db }} < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
+        
+      # Clone wordpress fresh install
+      - name: Install Wordpress
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            curl -O https://wordpress.org/latest.tar.gz
+            tar --strip-components=1 -xzvf latest.tar.gz
+            rm latest.tar.gz
+
+
+      # Copy secrets into plugins
+      - name: Copy Secrets
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cp ~/secrets/${{env.server}}/gcal-sync.json    ${{env.dest}}/wp-content/plugins/wp-plugin__gcal-sync/credentials.json
+            cp ~/secrets/${{env.server}}/gcal-sync.json    ${{env.dest}}/wp-content/plugins/wp-plugin__oauth--gCAL/client_secret.json
+            cp ${{env.dest}}/../${{env.server}}-config.php ${{env.dest}}/wp-config.php
+
+
+      # Chown to www-data:www-data
+      - name: Chown 
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            chown -Rf www-data:www-data ${{env.dest}}
+
+
+      # Activate plugins
+      - name: Setup Plugins
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            sudo -u www-data wp plugin activate wp-rocket
+            sudo -u www-data wp plugin delete hello akismet
+            sudo -u www-data wp plugin update --all
+            sudo -u www-data wp theme delete twentynineteen twentytwenty twentytwentyone
+
+
+      # Switch on Stripe to LIVE
+      - name: Activate LIVE Stripe
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            sudo -u www-data wp option get AcceptStripePayments-settings  --format=json | sed 's/is_live":0/is_live":1/' > /tmp/stripe_settings_live_on.json
+            sudo -u www-data wp option update AcceptStripePayments-settings  --format=json < /tmp/stripe_settings_live_on.json
+            rm /tmp/stripe_settings_live_on.json
+
+
+      # SEARCH/REPLACE Database
+      - name: Search & Replace in Database
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_posts SET guid = replace(guid, 'dev.londonparkour','${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_posts SET post_content = replace(post_content, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_options SET option_value = replace(option_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}   
+            

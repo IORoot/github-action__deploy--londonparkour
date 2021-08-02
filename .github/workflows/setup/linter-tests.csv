@@ -1,8 +1,0 @@
-<!doctype html>,            <!doctype html> TAG Present
-<html,                      <html> TAG Present
-<meta charset="utf-8">,     <meta charset="utf-8"> TAG Present
-<meta name="viewport",      <meta name="viewport" TAG Present and set correctly
-<title>.*<\/title>,         <title></title> is present and set
-<meta name="description",   <description> is present and set
-<link rel="icon",           Favicon is present and set
-lang="en-GB",               Language is present and set
