@@ -83,7 +83,7 @@ commit_changes_to_repo(){
 pre_deploy_message(){
     printf "${NC}----------------------------------------\n"
     printf "${Red}           gitdeploy tool\n"
-    printf "${Yellow}     Deploying to GITHUB.\n"
+    printf "${Yellow}        Deploying to GITHUB.\n"
     printf "${NC}----------------------------------------\n"
 }
 
