@@ -141,6 +141,9 @@ jobs:
             sudo -u www-data wp plugin delete hello akismet
             sudo -u www-data wp plugin update --all
             sudo -u www-data wp theme delete twentynineteen twentytwenty twentytwentyone
+            sudo -u www-data wp transient delete labstack
+            sudo -u www-data wp transient delete pulserest
+            sudo -u www-data wp transient delete pulsestack
 
 
       # Switch on Stripe to LIVE
