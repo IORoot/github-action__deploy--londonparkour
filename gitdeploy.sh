@@ -93,7 +93,7 @@ post_deploy_message(){
     printf "${Orange}1. Manually login to GCal Sync OAUTH.\n"
     printf "${Orange}2. Enter License into WP Real Media Library Plugin.\n\n"
 
-    printf "\n${Red}Push to LIVE by creating a repository release.\n"
+    printf "\n${Red}Manually push to WP01 through github actions.\n"
 }
 
 read_confirm(){
