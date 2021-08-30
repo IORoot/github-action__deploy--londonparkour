@@ -1,12 +1,11 @@
-name: (WebProduction01) Create a RELEASE
+name: (LIVE) WP01 RELEASE
 
 on:
-
   workflow_dispatch:
 
 env:
   server: live
-  ssh:    'root@138.68.159.70'
+  ssh:    'root@142.93.40.219'
   dest:   '/var/www/vhosts/londonparkour.com/'
   theme:  'wp-theme__londonparkour--v5'
   db:     'live_londonparkour_com'
@@ -55,11 +54,6 @@ jobs:
           NODE_ENV=production postcss  ./css/tailwind.css --config postcss.config.js --output ./css/style.css
           
           
-      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
-      - name: Composer Install
-        run: |
-          find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
-          find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
 
 
       # Deploy repo to server
@@ -72,6 +66,17 @@ jobs:
             --exclude /deploy_key \
             --exclude /.github/ \
             ./ ${{env.ssh}}:${{env.dest}}            
+
+      # Install Composer Packages in wp-plugin__ and wp-theme__ folders
+      - name: Composer Install
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            cd ${{env.dest}}
+            find . -path "*/wp-plugin*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
+            find . -path "./wp-content/themes/wp-theme*"  ! -path "*/vendor/*" ! -path "*/node_modules/*"  -name "composer.json"  -execdir composer install \;
 
 
       # Install Database

@@ -1,9 +1,6 @@
 name: (LIVE) Create a RELEASE
 
 on:
-  push:
-    branches:    
-      - 'releases/**'
   workflow_dispatch:
 
 env:
