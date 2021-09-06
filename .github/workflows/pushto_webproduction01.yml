@@ -173,3 +173,15 @@ jobs:
             mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}
             mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "UPDATE wp_options SET option_value = replace(option_value, 'dev.londonparkour', '${{ env.server }}.londonparkour');" ${{ env.db }}   
             
+
+      # Delete .git directory
+      - name: Delete .git 
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: ${{env.ssh}}
+          privateKey: ${{secrets.DEPLOY_KEY}}
+          command: |
+            rm -Rf ${{env.dest}}/.git
+            rm -Rf ${{env.dest}}/.git-crypt
+            rm -Rf ${{env.dest}}/.gitmodules
+            rm -Rf ${{env.dest}}/gitdeploy.sh
