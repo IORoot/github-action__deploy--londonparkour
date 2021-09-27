@@ -56,7 +56,7 @@ git push origin master
 
 ## Changelog
 
-v5.0.2
+v5.0.4
 - Plugin Updates
 - Wordpress update 5.8.1
 - Class Locations +Archway
