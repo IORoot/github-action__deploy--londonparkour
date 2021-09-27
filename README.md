@@ -56,6 +56,18 @@ git push origin master
 
 ## Changelog
 
-v5.0.1 - Fixes for pulse URL, AMP Titles and favicon.
+v5.0.2
+- Plugin Updates
+- Wordpress update 5.8.1
+- Class Locations +Archway
+- Confirmation Emails: WhatsApp/Slack links, +Location Links
+- Mailchimp on contact form
+- contact form update to auto-reply with lateness solutions.
+- Support page: Beginners class - lateness.
+- Removed border of 5-item section on homepage
 
-v5.0.0 - New Tailwind, lightweight major overhaul of website.
+v5.0.1 
+- Fixes for pulse URL, AMP Titles and favicon.
+
+v5.0.0 
+- New Tailwind, lightweight major overhaul of website.
