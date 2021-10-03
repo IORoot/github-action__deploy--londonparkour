@@ -55,6 +55,13 @@ git push origin master
 - login with google calendar on the gCal-importer plugin.
 
 ## Changelog
+v5.0.5
+- wordfence installed
+- added coupons
+- class locations +waterloo
+- changed 'discounts' page
+- confirmation emails for PTs no longer have {injected_date}
+
 
 v5.0.4
 - Plugin Updates
