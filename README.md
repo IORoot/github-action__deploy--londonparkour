@@ -1,8 +1,10 @@
+[![(LIVE) WP01 RELEASE](https://github.com/IORoot/deploy__STAGING/actions/workflows/pushto_webproduction01.yml/badge.svg?branch=master)](https://github.com/IORoot/deploy__STAGING/actions/workflows/pushto_webproduction01.yml)
+
 # Deploying Process
 
-## Deployment to Staging Server
+## Deployment to WebProduction01 Server
 
-To deploy onto the staging server you can push to the `master` git branch. This will trigger the necessary steps to fully build the site from the code in this repository.
+To deploy onto the staging server you can push to the `master` git branch. Then manually run the github action to deploy.
 
 ## Updating this repository with the vagrant version
 
@@ -22,33 +24,6 @@ This is a bash script in the script-library repository (https://github.com/IORoo
 1. Git push to github.
 
 The `gitdeploy` command also takes a single argument to push to another branch.
-
-## Deployment with tests (QA)
-
-To trigger tests, you can do this in two ways:
-
-1. To globally run ALL tests, you can add `-test` into the commit message and push to `master` branch.
-1. To run an individual test, you can add it's specific name as a flag to the commit message and push to the `master` branch.
-    1. `-lighthouse`
-    1. `-links`
-    1. `-browserstack`s
-    1. `-pa11y`
-    1. `-screencpature`
-    1. `-validator`
-
-
-## Deployment to LIVE
-
-To deploy to the live server, you need to add a release to this repository.
-
-To do this, add a new release tag and push to master.
-
-```
-git tag v5.0.1
-git add .
-git commit -m "New LIVE Release"
-git push origin master
-```
 
 ## Post-deployment Tasks
 
