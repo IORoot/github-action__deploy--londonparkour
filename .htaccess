@@ -232,4 +232,6 @@ Redirect 301 /yt                            https://youtube.com/londonparkour
 Redirect 301 /ig                            https://instagram.com/london_parkour
 # v5. pulse
 Redirect 301 /pulse 						https://pulse.londonparkour.com
+# youtube videos
+Redirect 301 /001               			https://www.youtube.com/watch?v=_2g9XgPf5Bg
 # END 301 Redirects
