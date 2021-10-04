@@ -30,6 +30,9 @@ The `gitdeploy` command also takes a single argument to push to another branch.
 - login with google calendar on the gCal-importer plugin.
 
 ## Changelog
+v5.0.6
+- Update wp-plugin__theme--custom-structure
+
 v5.0.5
 - wordfence installed
 - added coupons
