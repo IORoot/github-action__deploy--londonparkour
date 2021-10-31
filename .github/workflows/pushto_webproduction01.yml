@@ -89,9 +89,9 @@ jobs:
             git stash
             git-crypt unlock ~/secrets/${{ env.server }}/gpg_key
             git stash pop
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "DROP DATABASE IF EXISTS ${{ env.db }}"
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -e "CREATE DATABASE ${{ env.db }}"
-            mysql -uldnpk${{ env.server }} -p${{secrets.MYSQL_LIVE_PASSWORD}} -h localhost ${{ env.db }} < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "DROP DATABASE IF EXISTS ${{ env.db }}"
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -e "CREATE DATABASE ${{ env.db }}"
+            mysql -uroot -p${{secrets.MYSQL_ROOT_PASSWORD}} -h localhost ${{ env.db }} < ${{env.dest}}/wp-content/database/dev_londonparkour_com.sql
         
       # Clone wordpress fresh install
       - name: Install Wordpress
