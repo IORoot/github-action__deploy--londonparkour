@@ -196,11 +196,11 @@ Redirect 301 /privatesessions 				/grouptraining/
 Redirect 301 /bookings/youth 				/bookings/
 Redirect 301 /bookings/custom 				/bookings/
 # v4 -> v5. Labs
-Redirect 301 /tutorial 						https://labs.londonparkour.com
-Redirect 301 /tutorials 					https://labs.londonparkour.com
-Redirect 301 /tutorial-playlist 			https://labs.londonparkour.com
-Redirect 301 /tutorial-categories 			https://labs.londonparkour.com
-Redirect 301 /tutorial-video 				https://labs.londonparkour.com
+Redirect 301 /tutorial 						https://parkourlabs.com
+Redirect 301 /tutorials 					https://parkourlabs.com
+Redirect 301 /tutorial-playlist 			https://parkourlabs.com
+Redirect 301 /tutorial-categories 			https://parkourlabs.com
+Redirect 301 /tutorial-video 				https://parkourlabs.com
 # v4 -> v5 Posts -> Support
 Redirect 301 /about 						/support/
 Redirect 301 /beginner-class	    		/support/beginner-class
@@ -231,7 +231,8 @@ Redirect 301 /maps                          https://g.page/londonparkour?gm
 Redirect 301 /yt                            https://youtube.com/londonparkour
 Redirect 301 /ig                            https://instagram.com/london_parkour
 # v5. pulse
-Redirect 301 /pulse 						https://pulse.londonparkour.com
+Redirect 301 /pulse 						https://parkourpulse.com
+Redirect 301 /labs 							https://parkourlabs.com
 # youtube videos
 Redirect 301 /001               			https://www.youtube.com/watch?v=_2g9XgPf5Bg
 # END 301 Redirects
