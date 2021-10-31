@@ -37,6 +37,7 @@ v5.1
  - New class descriptions on /classes
  - duration of classes
  - subdomains sorted
+ - plugins added:   rest-isometric, epic-slider, blog
 
 v5.0.6
 - Update wp-plugin__theme--custom-structure

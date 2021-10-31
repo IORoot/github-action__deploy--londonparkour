@@ -97,9 +97,24 @@
 [submodule "wp-plugin__cpt--amp"]
 	path = wp-plugin__cpt--amp
 	url = https://github.com/IORoot/wp-plugin__cpt--amp.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__cpt--amp"]
 	path = wp-content/plugins/wp-plugin__cpt--amp
 	url = https://github.com/IORoot/wp-plugin__cpt--amp.git
+	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__cpt--support"]
 	path = wp-content/plugins/wp-plugin__cpt--support
 	url = https://github.com/IORoot/wp-plugin__cpt--support.git
+	ignore = dirty
+[submodule "wp-content/plugins/wp-plugin__cpt--blog"]
+	path = wp-content/plugins/wp-plugin__cpt--blog
+	url = git@github.com:IORoot/wp-plugin__cpt--blog.git
+	ignore = dirty
+[submodule "wp-content/plugins/wp-plugin__page-builder--epic-slider"]
+	path = wp-content/plugins/wp-plugin__page-builder--epic-slider
+	url = git@github.com:IORoot/wp-plugin__page-builder--epic-slider.git
+	ignore = dirty
+[submodule "wp-content/plugins/wp-plugin__rest--isometric"]
+	path = wp-content/plugins/wp-plugin__rest--isometric
+	url = git@github.com:IORoot/wp-plugin__rest--isometric.git
+	ignore = dirty
