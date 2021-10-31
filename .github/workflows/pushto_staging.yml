@@ -52,8 +52,7 @@ jobs:
           npm install -g postcss postcss-cli
           cd ./wp-content/themes/${{env.theme}}/src/assets/
           npm run prod
-          
-          
+
 
 
       # Deploy repo to server
