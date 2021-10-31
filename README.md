@@ -30,6 +30,14 @@ The `gitdeploy` command also takes a single argument to push to another branch.
 - login with google calendar on the gCal-importer plugin.
 
 ## Changelog
+
+v5.1
+ - Epic-slider on homepage
+ - Blog CPT
+ - New class descriptions on /classes
+ - duration of classes
+ - subdomains sorted
+
 v5.0.6
 - Update wp-plugin__theme--custom-structure
 
@@ -39,7 +47,6 @@ v5.0.5
 - class locations +waterloo
 - changed 'discounts' page
 - confirmation emails for PTs no longer have {injected_date}
-
 
 v5.0.4
 - Plugin Updates
