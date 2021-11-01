@@ -1,11 +1,3 @@
-[submodule "wp-content/plugins/wp-plugin__REST--labs"]
-	path = wp-content/plugins/wp-plugin__REST--labs
-	url = https://github.com/IORoot/wp-plugin__REST--labs.git
-	ignore = dirty
-[submodule "wp-content/plugins/wp-plugin__pulse--stack"]
-	path = wp-content/plugins/wp-plugin__pulse--stack
-	url = https://github.com/IORoot/wp-plugin__pulse--stack.git
-	ignore = dirty
 [submodule "wp-content/plugins/wp-plugin__acf--codemirror"]
 	path = wp-content/plugins/wp-plugin__acf--codemirror
 	url = https://github.com/IORoot/wp-plugin__acf--codemirror.git
