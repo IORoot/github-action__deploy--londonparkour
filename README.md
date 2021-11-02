@@ -31,6 +31,10 @@ The `gitdeploy` command also takes a single argument to push to another branch.
 
 ## Changelog
 
+v5.1.1
+ - Epic-slider mobile resize
+ - cache-busting on CSS and JS.
+
 v5.1
  - Epic-slider on homepage
  - Blog CPT
