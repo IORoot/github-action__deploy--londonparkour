@@ -23,14 +23,15 @@ Deploy LondonParkour onto Production Server through Github Action.
 * 3. [Usage](#Usage)
 	* 3.1. [Deploying Process](#DeployingProcess)
 		* 3.1.1. [Deployment to WebProduction01 Server](#DeploymenttoWebProduction01Server)
-* 4. [Updating this repository with the vagrant version](#Updatingthisrepositorywiththevagrantversion)
-		* 4.1. [Post-deployment Tasks](#Post-deploymentTasks)
-* 5. [ Customising](#Customising)
-* 6. [Troubleshooting](#Troubleshooting)
-* 7. [Contributing](#Contributing)
-* 8. [License](#License)
-* 9. [Contact](#Contact)
-* 10. [Changelog](#Changelog)
+	* 3.2. [Updating this repository with the vagrant version](#Updatingthisrepositorywiththevagrantversion)
+		* 3.2.1. [Post-deployment Tasks](#Post-deploymentTasks)
+* 4. [ Customising](#Customising)
+* 5. [Troubleshooting](#Troubleshooting)
+* 6. [Contributing](#Contributing)
+* 7. [License](#License)
+* 8. [Contact](#Contact)
+* 9. [Changelog](#Changelog)
+
 
 
 ##  2. <a name='AboutTheProject'></a>About The Project
@@ -71,7 +72,7 @@ Note, all secrets and database are git-crypted. The real `wp-config.php` file is
 
 To deploy onto the staging server you can push to the `master` git branch. Then manually run the github action to deploy.
 
-##  4. <a name='Updatingthisrepositorywiththevagrantversion'></a>Updating this repository with the vagrant version
+###  3.2. <a name='Updatingthisrepositorywiththevagrantversion'></a>Updating this repository with the vagrant version
 
 If you wish to update this repository with the copy on vagrant, use the command;
 
@@ -90,22 +91,22 @@ This is a bash script in the script-library repository (https://github.com/IORoo
 
 The `gitdeploy` command also takes a single argument to push to another branch.
 
-####  4.1. <a name='Post-deploymentTasks'></a>Post-deployment Tasks
+####  3.2.1. <a name='Post-deploymentTasks'></a>Post-deployment Tasks
 
 - login with google calendar on the gCal-importer plugin.
 
-##  5. <a name='Customising'></a> Customising
+##  4. <a name='Customising'></a> Customising
 
 None.
 
-##  6. <a name='Troubleshooting'></a>Troubleshooting
+##  5. <a name='Troubleshooting'></a>Troubleshooting
 
 None.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-##  7. <a name='Contributing'></a>Contributing
+##  6. <a name='Contributing'></a>Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -122,7 +123,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-##  8. <a name='License'></a>License
+##  7. <a name='License'></a>License
 
 Distributed under the MIT License.
 
@@ -152,13 +153,13 @@ SOFTWARE.
 
 
 
-##  9. <a name='Contact'></a>Contact
+##  8. <a name='Contact'></a>Contact
 
 Author Link: [https://github.com/IORoot](https://github.com/IORoot)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##  10. <a name='Changelog'></a>Changelog
+##  9. <a name='Changelog'></a>Changelog
 
 
 v5.1.1
